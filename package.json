@@ -8,11 +8,30 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "0.1.6",
+    "@react-navigation/bottom-tabs": "^5.6.1",
+    "@react-navigation/native": "^5.5.1",
+    "@react-navigation/stack": "^5.5.1",
+    "apisauce": "^1.1.1",
     "expo": "~37.0.3",
+    "expo-image-picker": "~8.1.0",
+    "expo-location": "~8.1.0",
+    "formik": "^2.1.4",
+    "moment": "^2.27.0",
     "react": "~16.9.0",
     "react-dom": "~16.9.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-37.0.1.tar.gz",
-    "react-native-web": "~0.11.7"
+    "react-native-calendars": "^1.300.0",
+    "react-native-gesture-handler": "~1.6.0",
+    "react-native-maps": "0.26.1",
+    "react-native-reanimated": "~1.7.0",
+    "react-native-safe-area-context": "0.7.3",
+    "react-native-screens": "~2.2.0",
+    "react-native-web": "~0.11.7",
+    "react-redux": "^7.2.1",
+    "redux": "^4.0.5",
+    "styled-components": "^5.1.1",
+    "yup": "^0.29.1"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",
