@@ -5,7 +5,7 @@ import _isEmpty from "lodash/isEmpty";
 import moment from "moment";
 
 //import components
-import { RoundedBtn, TextUnderlineButton } from "../components/Button";
+import { RoundedBtn, BtnTxtUnderline } from "../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -101,7 +101,7 @@ const RangePicker = ({ navigation }) => {
 
       <Next>
         <Left>
-          <TextUnderlineButton color={Colors.gray} label="건너뛰기" />
+          <BtnTxtUnderline color={Colors.gray} label="건너뛰기" />
         </Left>
         <BtnContainer>
           <RoundedBtn

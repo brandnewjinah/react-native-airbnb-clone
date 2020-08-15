@@ -1,7 +1,7 @@
 import React from "react";
 
 //import components
-import { BtnContain, BtnOutline, BtnText } from "../components/Button";
+import * as Button from "../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
@@ -18,18 +18,25 @@ const WelcomeScreen = ({ navigation }) => {
         </Header>
         <Options>
           <Btn>
-            <BtnContain
+            <Button.BtnContain
               label="Continue with Google"
               onPress={() => console.log("tapped")}
             />
           </Btn>
           <Btn>
-            <BtnOutline
+            <Button.BtnOutline
               label="Create Account"
               onPress={() => console.log("tapped")}
             />
           </Btn>
-          <BtnText label="Login" onPress={() => navigation.navigate("Login")} />
+          <Btn>
+            <Center>
+              <Button.BtnText
+                label="Login"
+                onPress={() => navigation.navigate("Login")}
+              />
+            </Center>
+          </Btn>
         </Options>
         <Terms>
           <Typography.P colors={Colors.gray}>
@@ -69,6 +76,11 @@ const Options = styled.View`
 
 const Btn = styled.View`
   margin: 10px 0;
+  display: flex;
+`;
+
+const Center = styled.View`
+  margin: 0 auto;
 `;
 
 const Terms = styled.View`

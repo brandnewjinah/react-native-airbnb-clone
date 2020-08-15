@@ -2,53 +2,51 @@ import React, { useState } from "react";
 import { View, Switch } from "react-native";
 
 //import components
-import { FilledButton } from "../components/Button";
+import * as Btn from "../components/Button";
+import * as IconLabel from "../components/IconLabel";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 import * as Typogrpahy from "../config/Typography";
-import {
-  EvilIcons,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
 
 const Reserve_1 = ({ route }) => {
   const listing = route.params;
   const [bizTrip, setBiztrip] = useState(false);
-  //   console.log(listing);
+
   return (
     <Container>
       <Detail>
         <MainWrapper>
           <Flex>
             <View>
-              <Typogrpahy.Cap>{listing.property_type}</Typogrpahy.Cap>
-              <Typogrpahy.Sub1>{listing.price}</Typogrpahy.Sub1>
-              <Flex>
-                <FontAwesome
-                  name="star"
-                  color={Colors.red}
-                  style={{ marginRight: 6 }}
-                />
-                <Typogrpahy.SP>4.65 (305)</Typogrpahy.SP>
-              </Flex>
+              <Typogrpahy.Cap colors={colors.gray}>
+                {listing.property_type}
+              </Typogrpahy.Cap>
+              <View style={{ marginVertical: 5 }}>
+                <Typogrpahy.Sub1>${listing.price}</Typogrpahy.Sub1>
+              </View>
+              <IconLabel.FA
+                icon="star"
+                label="4.65"
+                label2="(305)"
+                colors={colors.red}
+              />
             </View>
             <CoverImg source={{ uri: listing.images[0] }} resizeMode="cover" />
           </Flex>
           <HLine />
           <Flex>
             <View>
-              <Typogrpahy.Cap colors={Colors.gray}>체크인</Typogrpahy.Cap>
+              <Typogrpahy.Cap colors={colors.gray}>체크인</Typogrpahy.Cap>
               <Typogrpahy.Sub1>9월 1일</Typogrpahy.Sub1>
             </View>
             <View>
-              <Typogrpahy.Cap colors={Colors.gray}>체크아웃</Typogrpahy.Cap>
+              <Typogrpahy.Cap colors={colors.gray}>체크아웃</Typogrpahy.Cap>
               <Typogrpahy.Sub1>9월 4일</Typogrpahy.Sub1>
             </View>
             <View>
-              <Typogrpahy.Cap colors={Colors.gray}>게스트</Typogrpahy.Cap>
+              <Typogrpahy.Cap colors={colors.gray}>게스트</Typogrpahy.Cap>
               <Typogrpahy.Sub1>2명</Typogrpahy.Sub1>
             </View>
           </Flex>
@@ -56,8 +54,8 @@ const Reserve_1 = ({ route }) => {
           <Flex>
             <Typogrpahy.Sub1>출장인가요?</Typogrpahy.Sub1>
             <Switch
-              trackColor={{ false: Colors.faintgray, true: Colors.blue }}
-              ios_backgroundColor={Colors.faintgray}
+              trackColor={{ false: colors.faintgray, true: colors.blue }}
+              ios_backgroundColor={colors.faintgray}
               value={bizTrip}
               onValueChange={(newValue) => setBiztrip(newValue)}
             ></Switch>
@@ -65,7 +63,7 @@ const Reserve_1 = ({ route }) => {
           <HLine />
           <View>
             <View style={{ marginTop: 20, marginHorizontal: 20 }}>
-              <Typogrpahy.Cap colors={Colors.gray}>
+              <Typogrpahy.Cap colors={colors.gray}>
                 수수료 및 세금 정보
               </Typogrpahy.Cap>
             </View>
@@ -94,7 +92,7 @@ const Reserve_1 = ({ route }) => {
         </MainWrapper>
       </Detail>
       <Reserve>
-        <FilledButton label="예약하기" />
+        <Btn.BtnContain label="예약하기" />
       </Reserve>
     </Container>
   );
@@ -107,7 +105,6 @@ const Container = styled.View`
 
 const Detail = styled.ScrollView`
   flex: 1;
-  /* background-color: ${Colors.faintgray}; */
 `;
 
 const MainWrapper = styled.View`
@@ -121,13 +118,15 @@ const Reserve = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
 const HLine = styled.View`
+  width: 90%;
+  margin: 0 auto;
   border-bottom-width: 1px;
-  border-bottom-color: ${Colors.lightgray};
+  border-bottom-color: ${colors.faintgray};
 `;
 
 const Flex = styled.View`

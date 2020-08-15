@@ -13,18 +13,6 @@ import styled from "styled-components";
 import Colors from "../config/colors";
 import { PBold } from "../config/Typography";
 
-export const RoundedButton = ({ label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress}>
-        <Rounded>
-          <BtnLabel>{label}</BtnLabel>
-        </Rounded>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
 export const BtnContain = ({ label, onPress }) => {
   return (
     <Container>
@@ -37,37 +25,13 @@ export const BtnContain = ({ label, onPress }) => {
   );
 };
 
-export const RoundedBtn = ({ label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress}>
-        <Filled2>
-          <PBold colors="white">{label}</PBold>
-        </Filled2>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
 export const BtnOutline = ({ disabled, label, onPress }) => {
   return (
     <Container>
       <TouchableOpacity onPress={onPress} disabled={disabled}>
-        <Outline>
+        <Outlined>
           <Label style={{ color: Colors.red }}>{label}</Label>
-        </Outline>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
-export const DisabledButton = ({ disabled, label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress} disabled={disabled}>
-        <Disabled>
-          <Label style={{ color: Colors.lightgray }}>{label}</Label>
-        </Disabled>
+        </Outlined>
       </TouchableOpacity>
     </Container>
   );
@@ -85,7 +49,43 @@ export const BtnText = ({ label, onPress }) => {
   );
 };
 
-export const TextUnderlineButton = ({ color, label, onPress }) => {
+export const RoundedButton = ({ label, onPress }) => {
+  return (
+    <Container>
+      <TouchableOpacity onPress={onPress}>
+        <Rounded>
+          <BtnLabel>{label}</BtnLabel>
+        </Rounded>
+      </TouchableOpacity>
+    </Container>
+  );
+};
+
+export const RoundedBtn = ({ label, onPress }) => {
+  return (
+    <Container>
+      <TouchableOpacity onPress={onPress}>
+        <Filled2>
+          <PBold colors="white">{label}</PBold>
+        </Filled2>
+      </TouchableOpacity>
+    </Container>
+  );
+};
+
+export const DisabledButton = ({ disabled, label, onPress }) => {
+  return (
+    <Container>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
+        <Disabled>
+          <Label style={{ color: Colors.lightgray }}>{label}</Label>
+        </Disabled>
+      </TouchableOpacity>
+    </Container>
+  );
+};
+
+export const BtnTxtUnderline = ({ color, label, onPress }) => {
   return (
     <Container>
       <TouchableOpacity onPress={onPress}>
@@ -160,6 +160,26 @@ const Container = styled.View`
   width: 100%;
 `;
 
+const Filled = styled.View`
+  justify-content: center;
+  align-items: center;
+  background-color: ${Colors.red};
+  border-radius: 26px;
+  padding: 14px;
+`;
+
+const Outlined = styled.View`
+  justify-content: center;
+  align-items: center;
+  border: 2px solid ${Colors.red};
+  border-radius: 26px;
+  padding: 14px;
+`;
+
+const LabelWrapper = styled.View`
+  padding: 10px 0;
+`;
+
 const Circle = styled.View`
   background-color: white;
   border-radius: 500px;
@@ -170,14 +190,6 @@ const Rounded = styled.View`
   justify-content: center;
   align-items: center;
   border: 1px solid ${Colors.lightgray};
-  border-radius: 26px;
-  padding: 14px;
-`;
-
-const Filled = styled.View`
-  justify-content: center;
-  align-items: center;
-  background-color: ${Colors.red};
   border-radius: 26px;
   padding: 14px;
 `;
@@ -214,20 +226,6 @@ const Disabled = styled.View`
   align-items: center;
   border: 2px solid ${Colors.lightgray};
   border-radius: 26px;
-  padding: 14px;
-`;
-
-const Outline = styled.View`
-  justify-content: center;
-  align-items: center;
-  border: 2px solid ${Colors.red};
-  border-radius: 26px;
-  padding: 14px;
-`;
-
-const LabelWrapper = styled.View`
-  justify-content: center;
-  align-items: center;
   padding: 14px;
 `;
 

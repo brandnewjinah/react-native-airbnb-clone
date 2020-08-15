@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import { FlatList, Modal, TouchableOpacity, StatusBar } from "react-native";
+import {
+  View,
+  FlatList,
+  Modal,
+  TouchableOpacity,
+  StatusBar,
+} from "react-native";
 
 //import components
 import { SearchTap, SearchInput } from "../components/SearchBar";
@@ -56,12 +62,14 @@ const Home = ({ navigation }) => {
   return (
     <Common>
       <Container>
-        <SearchTap
-          placeholder="Location, landmark, or address"
-          icon="search"
-          size={20}
-          setSearch={() => setSearch(true)}
-        />
+        <SearchStart>
+          <SearchTap
+            placeholder="Location, landmark, or address"
+            icon="search"
+            size={20}
+            setSearch={() => setSearch(true)}
+          />
+        </SearchStart>
         <Modal visible={search} animationType="slide">
           <Safe>
             <FlatList
@@ -80,7 +88,9 @@ const Home = ({ navigation }) => {
               data={filteredCity}
               keyExtractor={(item) => item.title}
               renderItem={({ item }) => (
-                <SearchList title={item.title} onPress={() => onNavigate()} />
+                <View style={{ paddingHorizontal: 20 }}>
+                  <SearchList title={item.title} onPress={() => onNavigate()} />
+                </View>
               )}
               ItemSeparatorComponent={() => <HLine />}
             />
@@ -122,11 +132,15 @@ const Container = styled.View`
   flex: 1;
 `;
 
+const SearchStart = styled.View`
+  padding: 10px 0 5px 0;
+`;
+
 const SearchArea = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 20px;
 `;
 
 const Safe = styled.SafeAreaView`

@@ -1,7 +1,7 @@
 import React from "react";
 import { View, FlatList, Text, SectionList, StatusBar } from "react-native";
 
-import { ListItem, SingleItem } from "../components/ListItem";
+import { ListItem, SingleItemTap } from "../components/ListItem";
 
 //import styles and assets
 import styled from "styled-components";
@@ -54,7 +54,7 @@ const Accounts = ({ navigation }) => {
           )}
           stickySectionHeadersEnabled={false}
           renderItem={({ item }) => (
-            <SingleItem
+            <SingleItemTap
               title={item.title}
               icon={item.icon}
               iconcolor={Colors.darkgray}
@@ -83,6 +83,7 @@ const Common = styled.SafeAreaView`
 const Container = styled.View`
   flex: 1;
   background-color: white;
+  padding: 20px;
 `;
 
 const HLine = styled.View`

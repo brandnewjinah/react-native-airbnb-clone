@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
-import MainTab from "./MainTab";
 
 import { EvilIcons } from "@expo/vector-icons";
 import styled from "styled-components";
@@ -25,6 +24,9 @@ const AuthStack = () => (
       options={{
         title: false,
         headerBackTitleVisible: false,
+        headerStyle: {
+          height: 60,
+        },
         headerBackImage: () => (
           <IconWrapper>
             <EvilIcons name="chevron-left" size={30} />

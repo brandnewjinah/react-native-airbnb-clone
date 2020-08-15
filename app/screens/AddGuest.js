@@ -11,7 +11,7 @@ import {
 //import components
 import {
   FilledButton2,
-  TextUnderlineButton,
+  BtnTxtUnderline,
   IconButton2,
 } from "../components/Button";
 
@@ -156,7 +156,7 @@ const AddGuest = ({ navigation }) => {
       </MainWrapper>
       <Next>
         <Left>
-          <TextUnderlineButton color={Colors.gray} label="건너뛰기" />
+          <BtnTxtUnderline color={Colors.gray} label="건너뛰기" />
         </Left>
         <BtnContainer>
           <IconButton2

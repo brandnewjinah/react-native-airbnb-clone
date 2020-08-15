@@ -44,8 +44,8 @@ export default function App() {
     // <Common>
     <Provider store={store}>
       <NavigationContainer theme={navigationTheme}>
-        {/* <AuthStack /> */}
-        <ListStack />
+        <AuthStack />
+        {/* <ListStack /> */}
       </NavigationContainer>
     </Provider>
     // </Common>

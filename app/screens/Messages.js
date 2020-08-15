@@ -105,7 +105,7 @@ const MessageScreen = ({ navigation }) => {
 const Container = styled.View`
   flex: 1;
   background-color: white;
-  padding-top: 45px;
+  padding: 45px 20px 0;
 `;
 
 const Header = styled.View`
