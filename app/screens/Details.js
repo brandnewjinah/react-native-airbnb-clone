@@ -1,34 +1,22 @@
 import React from "react";
-import {
-  View,
-  Image,
-  Text,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { View, Platform, StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 //import components
-import * as Highlights from "../components/Highlights";
-import { BtnContain, BtnCircle } from "../components/Button";
-import { ListItem } from "../components/ListItem";
-import styled from "styled-components";
-import Colors from "../config/colors";
 import ImgCarousel from "../components/ImgCarousel";
-
-import { rooms } from "../data/data";
-import Listings from "./Listings";
+import * as Highlights from "../components/Highlights";
+import { BtnContain, BtnCircle, BtnTxtUnderline } from "../components/Button";
+import { ListItem, IconList } from "../components/ListItem";
+import * as IconLabel from "../components/IconLabel";
 
 //import styles and assets
-import { H1, SP, P, Sub1, Sub2 } from "../config/Typography";
-import {
-  EvilIcons,
-  FontAwesome,
-  MaterialCommunityIcons,
-} from "@expo/vector-icons";
+import styled from "styled-components";
+import colors from "../config/colors";
+import * as Typography from "../config/Typography";
+import { FontAwesome } from "@expo/vector-icons";
+
+//import data
+import { AvailAmenities } from "../data/detaildata";
 
 const Details = ({ navigation, route }) => {
   const listing = route.params;
@@ -37,78 +25,125 @@ const Details = ({ navigation, route }) => {
     <Container>
       <Detail>
         <ImgCarousel images={listing.images} />
-        <CloseBtn>
+        <BackBtn>
           <BtnCircle
-            iconName="close"
+            iconName="chevron-left"
             size={24}
             onPress={() => navigation.goBack()}
           ></BtnCircle>
-        </CloseBtn>
+        </BackBtn>
 
         <MainWrapper>
-          <H1>{listing.title}</H1>
+          <Typography.H2>{listing.title}</Typography.H2>
           <Subheading>
-            <Flex>
-              <FontAwesome
-                name="star"
-                color={Colors.red}
-                style={{ marginRight: 6 }}
-              />
-              <P>4.65 (305)</P>
-            </Flex>
-            <Flex>
-              <MaterialCommunityIcons
-                name="medal"
-                color={Colors.red}
-                style={{ marginRight: 6 }}
-              />
-              <P>슈퍼호스트</P>
-            </Flex>
-            <Text>Cheju, 제주도, 한국</Text>
+            <IconLabel.FA
+              icon="star"
+              label="4.65"
+              label2="(305)"
+              colors={colors.red}
+            />
+            <IconLabel.MCI
+              icon="medal"
+              label="슈퍼호스트"
+              colors={colors.red}
+            />
+            <Typography.SP>Cheju, 제주도, 한국</Typography.SP>
           </Subheading>
           <HLine />
-          <HighlightWrapper>
+          <Section>
             <Highlights.SuperClean />
             <Highlights.SelfCheckin />
             <Highlights.FreeCancellation />
-          </HighlightWrapper>
+          </Section>
           <HLine />
-          <Host>
+          <Section>
+            <Typography.H2>Description</Typography.H2>
+            <Flex>
+              <IconLabel.FA icon="bath" label="Bath" qty={listing.baths} />
+              <IconLabel.FA icon="bed" label="Bed" qty={listing.beds} />
+            </Flex>
+            <Typography.P>
+              제주 서쪽에 위치한 조용하고 제주스러운 돌담이 멋스러운 지역,
+              근사한 바다를 숙소에서 조망할 수 있는 바로 귀덕리 바닷가 앞 아담한
+              숙소입니다. 제주 공항에서 자동차로 30분 거리에 있으며, 걸어서 8분
+              거리에 버스정거장이 있고, 편의점은 걸어서 10분거리에 있습니다.
+            </Typography.P>
+            <BtnTxtUnderline
+              label="더 보기"
+              color={colors.gray}
+              onPress={() => navigation.navigate("Description", listing)}
+            />
+          </Section>
+          <HLine />
+          <Section>
+            <Typography.H2>Amenities</Typography.H2>
+            <IconList
+              title="Elevator"
+              icon="elevator"
+              iconcolor={colors.gray}
+            />
+            <IconList
+              title="Kitchen"
+              icon="food-variant"
+              iconcolor={colors.gray}
+            />
+            <IconList title="Wifi" icon="wifi" iconcolor={colors.gray} />
+            <IconList
+              title="Washer"
+              icon="dishwasher"
+              iconcolor={colors.gray}
+            />
+            <IconList
+              title="Cable TV"
+              icon="youtube-tv"
+              iconcolor={colors.gray}
+            />
+            <BtnTxtUnderline
+              label="더 보기"
+              color={colors.gray}
+              onPress={() => navigation.navigate("Amenities", listing)}
+            />
+          </Section>
+          <HLine />
+          <Section>
             <ListItem
               title="호스트: Jinah Lee님"
               subtitle="회원 가입일: 2018년 12월"
               image={require("../assets/profile.jpg")}
             ></ListItem>
-          </Host>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            scrollEnabled={false}
-            initialRegion={{
-              latitude: listing.coordinate.latitude,
-              longitude: listing.coordinate.longitude,
-              latitudeDelta: 0.5,
-              longitudeDelta: 0.5,
-            }}
-          >
-            <Marker coordinate={listing.coordinate}></Marker>
-          </MapView>
+          </Section>
+          <HLine />
+          <Section>
+            <Typography.H2>Location</Typography.H2>
+            <MapView
+              provider={PROVIDER_GOOGLE}
+              style={styles.map}
+              scrollEnabled={false}
+              initialRegion={{
+                latitude: listing.coordinate.latitude,
+                longitude: listing.coordinate.longitude,
+                latitudeDelta: 0.5,
+                longitudeDelta: 0.5,
+              }}
+            >
+              <Marker coordinate={listing.coordinate}></Marker>
+            </MapView>
+          </Section>
         </MainWrapper>
       </Detail>
       <Reserve>
         <View>
-          <Flex>
-            <Sub2>${listing.price}</Sub2>
-            <Sub1 colors={Colors.darkgray}> /박</Sub1>
-          </Flex>
-          <Flex>
-            <FontAwesome
-              name="star"
-              color={Colors.red}
-              style={{ marginRight: 6 }}
-            />
-            <SP>4.65 (305)</SP>
-          </Flex>
+          <View style={{ display: "flex", flexDirection: "row" }}>
+            <Typography.Sub2>${listing.price}</Typography.Sub2>
+            <Typography.Sub1 colors={colors.darkgray}> /박</Typography.Sub1>
+          </View>
+
+          <IconLabel.FA
+            icon="star"
+            label="4.65"
+            label2="(305)"
+            colors={colors.red}
+          />
         </View>
         <BtnContainer>
           <BtnContain
@@ -130,28 +165,10 @@ const Detail = styled.ScrollView`
   flex: 1;
 `;
 
-const Reserve = styled.View`
-  padding: 20px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
-  background-color: white;
-`;
-
-const ImgSlider = styled.Image`
-  width: 100%;
-  height: 300px;
-`;
-
-const CloseBtn = styled.View`
+const BackBtn = styled.View`
   position: absolute;
   margin-top: ${Platform.OS === "ios" ? "40px" : "40px"};
   margin-left: 20px;
-  /* background-color: white;
-  border-radius: 12px;
-  padding: 4px; */
 `;
 
 const MainWrapper = styled.View`
@@ -165,23 +182,29 @@ const Subheading = styled.View`
   margin: 15px 0;
 `;
 
+const Section = styled.View`
+  padding: 18px 0;
+`;
+
+const Reserve = styled.View`
+  padding: 20px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-top-width: 1px;
+  border-top-color: ${colors.faintgray};
+  background-color: white;
+`;
+
 const Flex = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-right: 16px;
+  margin: 14px 16px 14px 0;
 `;
 
 const HLine = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: ${Colors.lightgray};
-`;
-
-const HighlightWrapper = styled.View`
-  margin: 0 0 20px 0;
-`;
-
-const Host = styled.View`
-  margin: 30px 0;
+  border-bottom-color: ${colors.lightgray};
 `;
 
 const BtnContainer = styled.View`
@@ -191,6 +214,7 @@ const BtnContainer = styled.View`
 const styles = StyleSheet.create({
   map: {
     height: 200,
+    marginTop: 15,
   },
 });
 

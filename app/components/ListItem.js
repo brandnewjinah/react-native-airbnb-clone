@@ -1,16 +1,71 @@
 import React from "react";
 import {
   View,
-  Text,
   TouchableHighlight,
   TouchableWithoutFeedback,
 } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-import { EvilIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  EvilIcons,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import styled from "styled-components";
 import Colors from "../config/colors";
-import { SP } from "../config/Typography";
+import * as Typography from "../config/Typography";
+import colors from "../config/colors";
+
+export const SingleItem = ({ icon, subtitle, title, iconcolor }) => {
+  return (
+    <Container>
+      <SingleContainer>
+        <ProfileContainer>
+          <Typography.Sub1 colors={colors.darkgray}>{title}</Typography.Sub1>
+          {subtitle && (
+            <Typography.P colors={colors.gray}>{subtitle}</Typography.P>
+          )}
+        </ProfileContainer>
+        {icon && <EvilIcons name={icon} size={26} color={iconcolor} />}
+      </SingleContainer>
+    </Container>
+  );
+};
+
+export const IconList = ({ icon, title, iconcolor }) => {
+  return (
+    <Wrapper>
+      <SingleContainer>
+        <Typography.Sub1 colors={colors.darkgray}>{title}</Typography.Sub1>
+        {icon && (
+          <MaterialCommunityIcons name={icon} size={26} color={iconcolor} />
+        )}
+      </SingleContainer>
+    </Wrapper>
+  );
+};
+
+export const SingleItemTap = ({
+  icon,
+  onPress,
+  subtitle,
+  title,
+  iconcolor,
+}) => {
+  return (
+    <TouchableHighlight underlayColor={Colors.gray} onPress={onPress}>
+      <Container>
+        <SingleContainer>
+          <ProfileContainer>
+            <ProfileTitle>{title}</ProfileTitle>
+            {subtitle && <ProfileSubTitle>{subtitle}</ProfileSubTitle>}
+          </ProfileContainer>
+          {icon && <EvilIcons name={icon} size={26} color={iconcolor} />}
+        </SingleContainer>
+      </Container>
+    </TouchableHighlight>
+  );
+};
 
 export const ListItem = ({
   arrow,
@@ -56,7 +111,7 @@ export const MessageItem = ({
             <FirstLine>
               <ProfileTitle>{title}</ProfileTitle>
               <View style={{ flexDirection: "row" }}>
-                <SP>{dates}</SP>
+                <Typography.SP>{dates}</Typography.SP>
                 {arrow && <EvilIcons name={arrow} size={20} />}
               </View>
             </FirstLine>
@@ -67,22 +122,6 @@ export const MessageItem = ({
         </Container>
       </TouchableHighlight>
     </Swipeable>
-  );
-};
-
-export const SingleItem = ({ icon, onPress, subtitle, title, iconcolor }) => {
-  return (
-    <TouchableHighlight underlayColor={Colors.gray} onPress={onPress}>
-      <Container>
-        <SingleContainer>
-          <ProfileContainer>
-            <ProfileTitle>{title}</ProfileTitle>
-            {subtitle && <ProfileSubTitle>{subtitle}</ProfileSubTitle>}
-          </ProfileContainer>
-          {icon && <EvilIcons name={icon} size={26} color={iconcolor} />}
-        </SingleContainer>
-      </Container>
-    </TouchableHighlight>
   );
 };
 
@@ -120,7 +159,7 @@ const Container = styled.View`
   background-color: white;
   flex-direction: row;
   align-items: center;
-  padding: 20px;
+  padding: 20px 0;
   ${Platform.select({
     ios: {
       fontFamily: "Avenir",
@@ -129,6 +168,27 @@ const Container = styled.View`
       fontFamily: "Roboto",
     },
   })};
+`;
+
+const Wrapper = styled.View`
+  background-color: white;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 0;
+  ${Platform.select({
+    ios: {
+      fontFamily: "Avenir",
+    },
+    android: {
+      fontFamily: "Roboto",
+    },
+  })};
+`;
+
+const SingleContainer = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const TripContainer = styled.View`
@@ -144,12 +204,6 @@ const TripContainer = styled.View`
       fontFamily: "Roboto",
     },
   })};
-`;
-
-const SingleContainer = styled.View`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
 `;
 
 const Avatar = styled.Image`

@@ -28,6 +28,9 @@ const MainStack = () => (
       options={{
         title: "날짜 추가",
         headerBackTitleVisible: false,
+        headerStyle: {
+          height: 60,
+        },
         headerBackImage: () => (
           <IconWrapper>
             <EvilIcons name="chevron-left" size={30} />
@@ -41,6 +44,9 @@ const MainStack = () => (
       options={{
         title: "게스트 추가",
         headerBackTitleVisible: false,
+        headerStyle: {
+          height: 60,
+        },
         headerBackImage: () => (
           <IconWrapper>
             <EvilIcons name="chevron-left" size={30} />

@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, Platform } from "react-native";
+import { Text, Platform, View } from "react-native";
 
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 
 export const H = ({ children, colors }) => {
   return (
@@ -20,6 +20,14 @@ export const H1 = ({ children, colors }) => {
   );
 };
 
+export const H2 = ({ children, colors }) => {
+  return (
+    <Container>
+      <Heading2 style={{ color: colors }}>{children}</Heading2>
+    </Container>
+  );
+};
+
 export const H3 = ({ children, colors }) => {
   return (
     <Container>
@@ -28,10 +36,12 @@ export const H3 = ({ children, colors }) => {
   );
 };
 
-export const H4 = ({ children, colors }) => {
+export const H4 = ({ bold, children, colors }) => {
   return (
     <Container>
-      <Heading4 style={{ color: colors }}>{children}</Heading4>
+      <Text style={bold && { fontWeight: "bold" }}>
+        <Heading4 style={{ color: colors }}>{children}</Heading4>
+      </Text>
     </Container>
   );
 };
@@ -103,6 +113,10 @@ const Heading1 = styled.Text`
   font-size: ${Platform.OS === "ios" ? "24px" : "24px"};
 `;
 
+const Heading2 = styled.Text`
+  font-size: ${Platform.OS === "android" ? "22px" : "22px"};
+`;
+
 const Heading3 = styled.Text`
   font-size: ${Platform.OS === "android" ? "22px" : "20px"};
 `;
@@ -122,7 +136,6 @@ const Subtitle2 = styled.Text`
 
 const Paragraph = styled.Text`
   font-size: ${Platform.OS === "ios" ? "14px" : "14px"};
-  /* color: ${Colors.gray}; */
   line-height: 18px;
 `;
 
@@ -133,7 +146,7 @@ const ParagraphBold = styled.Text`
 
 const SmallParagraph = styled.Text`
   font-size: ${Platform.OS === "android" ? "14px" : "12px"};
-  color: ${Colors.darkgray};
+  color: ${colors.darkgray};
   line-height: 18px;
 `;
 
