@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextInput, TouchableOpacity, Text } from "react-native";
+import { Dimensions, TextInput, TouchableOpacity, Text } from "react-native";
 import { useFormikContext } from "formik";
 
 //import components

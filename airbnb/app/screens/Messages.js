@@ -58,7 +58,7 @@ const MessageScreen = ({ navigation }) => {
 
   const handleNavigation = (item) => {
     console.log(item.fromUser);
-    navigation.navigate("MessageDetail2", item);
+    navigation.navigate("MessageDetail", item);
   };
 
   return (

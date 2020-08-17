@@ -3,12 +3,16 @@ import { View } from "react-native";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 
-export const MessageItem = ({ subtitle, title, caption }) => {
+export const MessageItem = ({ id, subtitle, title, caption }) => {
   const containerStyle =
-    title === "loggedinuser"
-      ? { flexDirection: "row-reverse", textAlign: "right" }
+    id === 1
+      ? {
+          flexDirection: "row-reverse",
+          textAlign: "right",
+          backgroundColor: "blue",
+        }
       : { flexDirection: "row" };
 
   return (
@@ -25,21 +29,6 @@ export const MessageItem = ({ subtitle, title, caption }) => {
     </Container>
   );
 };
-
-// export const SentMessageItem = ({ subtitle, title, caption }) => {
-//   return (
-//     <SentContainer>
-//       <Img />
-//       <MessageContainer>
-//         <TitleReverse>{title}</TitleReverse>
-//         <MessageWrapper>
-//           <SubTitle numberOfLines={1}>{subtitle}</SubTitle>
-//         </MessageWrapper>
-//         <Date>{caption}</Date>
-//       </MessageContainer>
-//     </SentContainer>
-//   );
-// };
 
 const Container = styled.View`
   background-color: white;
@@ -76,33 +65,33 @@ const MessageContainer = styled.View`
 
 const Title = styled.Text`
   font-size: 12px;
-  color: ${Colors.black};
+  color: ${colors.black};
   margin-bottom: 6px;
   margin-left: 15px;
 `;
 
 const TitleReverse = styled.Text`
   font-size: 12px;
-  color: ${Colors.black};
+  color: ${colors.black};
   text-align: right;
   margin-bottom: 6px;
   margin-right: 15px;
 `;
 
 const MessageWrapper = styled.View`
-  background-color: ${Colors.faintgray};
+  background-color: ${colors.faintgray};
   border-radius: 16px;
 `;
 
 const SubTitle = styled.Text`
   font-size: 13px;
-  color: ${Colors.darkgray};
+  color: ${colors.darkgray};
   padding: 20px;
 `;
 
 const Date = styled.Text`
   font-size: 10px;
-  color: ${Colors.gray};
+  color: ${colors.gray};
   text-align: right;
   padding-top: 5px;
   padding-right: 20px;
