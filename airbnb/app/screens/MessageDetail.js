@@ -50,6 +50,7 @@ const MessageDetail = () => {
   const sendMessage = () => {
     socket.current.emit("message", message);
     setMessageList((prevState) => [...prevState, message]);
+    console.log(messageList);
     setMessage("");
     Keyboard.dismiss();
   };
@@ -64,7 +65,6 @@ const MessageDetail = () => {
     >
       <Container>
         <FlatList
-          inverted
           data={messageList}
           keyExtractor={(item, index) => "key" + index}
           renderItem={({ item }) => (
@@ -75,7 +75,6 @@ const MessageDetail = () => {
             />
           )}
         />
-        <View></View>
         <Compose>
           <Input
             placeholder="메세지 작성하기"
@@ -94,6 +93,7 @@ const MessageDetail = () => {
 
 const Container = styled.View`
   flex: 1;
+  justify-content: flex-end;
   background-color: white;
 `;
 

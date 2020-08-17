@@ -1,40 +1,45 @@
 import React from "react";
-import { View } from "react-native";
+import { Dimensions, View } from "react-native";
 
 //import styles and assets
 import styled from "styled-components";
 import colors from "../config/colors";
 
+const { width, height } = Dimensions.get("window");
+
 export const MessageItem = ({ id, subtitle, title, caption }) => {
-  const containerStyle =
+  const msgDirection =
     id === 1
       ? {
           flexDirection: "row-reverse",
           textAlign: "right",
-          backgroundColor: "blue",
         }
       : { flexDirection: "row" };
 
+  const bubbleStyle =
+    id === 1
+      ? { backgroundColor: "#b4d9d5", alignSelf: "flex-end" }
+      : { backgroundColor: `${colors.faintgray}` };
+
   return (
-    <Container style={containerStyle}>
-      {/* {image && <Avatar source={{ uri: image }} />} */}
-      <Img />
-      <MessageContainer>
-        <Title style={containerStyle}>{title}</Title>
-        <MessageWrapper>
-          <SubTitle numberOfLines={1}>{subtitle}</SubTitle>
-        </MessageWrapper>
-        <Date>{caption}</Date>
-      </MessageContainer>
-    </Container>
+    <View>
+      <Container style={msgDirection}>
+        <Img />
+        <Wrapper>
+          <Title style={msgDirection}>{title}</Title>
+          <Bubble style={bubbleStyle}>
+            <SubTitle numberOfLines={1}>{subtitle}</SubTitle>
+          </Bubble>
+          <Date>{caption}</Date>
+        </Wrapper>
+      </Container>
+    </View>
   );
 };
 
 const Container = styled.View`
-  background-color: white;
-  /* flex-direction: row; */
-
   padding: 20px;
+
   ${Platform.select({
     ios: {
       fontFamily: "Avenir",
@@ -52,34 +57,19 @@ const Img = styled.View`
   background-color: black;
 `;
 
-const Avatar = styled.Image`
-  width: 70px;
-  height: 70px;
-  border-radius: 35px;
-`;
-
-const MessageContainer = styled.View`
+const Wrapper = styled.View`
   flex: 1;
-  margin-left: 10px;
+  padding: 0 10px;
 `;
 
 const Title = styled.Text`
   font-size: 12px;
   color: ${colors.black};
   margin-bottom: 6px;
-  margin-left: 15px;
 `;
 
-const TitleReverse = styled.Text`
-  font-size: 12px;
-  color: ${colors.black};
-  text-align: right;
-  margin-bottom: 6px;
-  margin-right: 15px;
-`;
-
-const MessageWrapper = styled.View`
-  background-color: ${colors.faintgray};
+const Bubble = styled.View`
+  width: 70%;
   border-radius: 16px;
 `;
 
@@ -94,5 +84,4 @@ const Date = styled.Text`
   color: ${colors.gray};
   text-align: right;
   padding-top: 5px;
-  padding-right: 20px;
 `;
