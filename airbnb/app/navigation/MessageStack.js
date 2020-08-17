@@ -4,7 +4,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 //import screens
 
 import Message from "../screens/Messages";
-import MessageDetail2 from "../screens/MessageDetail2";
 import MessageDetail from "../screens/MessageDetail";
 
 //import styles, icons
@@ -29,11 +28,6 @@ const MessageStack = ({ navigation, route }) => {
       <Stack.Screen
         name="MessageDetail"
         component={MessageDetail}
-        options={({ route }) => ({ title: route.params.fromUser })}
-      />
-      <Stack.Screen
-        name="MessageDetail2"
-        component={MessageDetail2}
         options={({ route }) => ({ title: route.params.fromUser })}
       />
     </Stack.Navigator>
