@@ -87,6 +87,7 @@ const Body = styled.View`
 `;
 
 const Main = styled.View`
+  flex: 1;
   padding: 0 24px;
 `;
 
@@ -99,7 +100,7 @@ const MapBtnWrapper = styled.View`
   width: 20%;
   align-self: center;
   position: absolute;
-  bottom: 80px;
+  bottom: 20px;
 `;
 
 const CloseBtn = styled.View`

@@ -112,26 +112,26 @@ const ListMap = ({ navigation, route, closeBtn, showListing }) => {
         style={styles.map}
         initialRegion={state.region}
       >
-        {state.rooms.map((room, index) => {
-          const scaleStyle = {
-            transform: [
-              {
-                scale: interpolations[index].scale,
-              },
-            ],
-          };
-          return (
-            <Marker
-              key={index}
-              coordinate={room.coordinate}
-              onPress={(e) => onMarkerPress(e)}
-            >
+        {state.rooms.map((room, index) => (
+          <Marker
+            key={index}
+            coordinate={room.coordinate}
+            onPress={(e) => onMarkerPress(e)}
+          >
+            {/* {room.id === 1 ? (
+              <CustomMarkerCurrent>
+                <Text>${room.price}</Text>
+              </CustomMarkerCurrent>
+            ) : (
               <CustomMarker>
-                <Text>{room.price}</Text>
+                <Text>${room.price}</Text>
               </CustomMarker>
-            </Marker>
-          );
-        })}
+            )} */}
+            <CustomMarker>
+              <Text>${room.price}</Text>
+            </CustomMarker>
+          </Marker>
+        ))}
       </MapView>
 
       <CloseBtn>
@@ -202,6 +202,12 @@ const Bubble = styled.View`
   border: 0.5px solid #cccccc;
   padding: 15px;
   width: 150px;
+`;
+
+const CustomMarkerCurrent = styled.View`
+  background-color: black;
+  border-radius: 20px;
+  padding: 6px 16px;
 `;
 
 const CustomMarker = styled.View`
