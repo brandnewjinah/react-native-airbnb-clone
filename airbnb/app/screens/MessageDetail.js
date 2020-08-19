@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
+
 import {
   FlatList,
   TouchableOpacity,
   KeyboardAvoidingView,
-  View,
   Keyboard,
-  Text,
   Platform,
+  Text,
+  TextInput,
 } from "react-native";
 import io from "socket.io-client";
 import moment from "moment";
@@ -19,10 +20,7 @@ import styled from "styled-components";
 import colors from "../config/colors";
 import { Feather } from "@expo/vector-icons";
 
-//import data
-import { messages } from "../data/messages";
-
-const keyboardVerticalOffset = Platform.OS === "ios" ? 60 : -210;
+const keyboardVerticalOffset = Platform.OS === "ios" ? 60 : 60;
 
 const MessageDetail = () => {
   const [message, setMessage] = useState({
@@ -32,6 +30,7 @@ const MessageDetail = () => {
   });
   const [messageList, setMessageList] = useState([]);
   const socket = useRef(null);
+  const flat = useRef();
 
   useEffect(() => {
     socket.current = io("http://10.160.211.17:3001");
@@ -55,62 +54,72 @@ const MessageDetail = () => {
     Keyboard.dismiss();
   };
 
-  // const displayMessage = messageList.map((msg, idx) => <Text>{msg}</Text>);
-
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior="padding"
-      keyboardVerticalOffset={keyboardVerticalOffset}
-    >
-      <Container>
-        <FlatList
-          data={messageList}
-          keyExtractor={(item, index) => "key" + index}
-          renderItem={({ item }) => (
-            <MessageItem
-              id={item.user_id}
-              title={item.createdAt}
-              subtitle={item.msg}
-            />
-          )}
-        />
-        <Compose>
-          <Input
+    <Container>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
+        <MessageArea>
+          <FlatList
+            ref={flat}
+            onContentSizeChange={() =>
+              flat.current.scrollToEnd({ animated: true })
+            }
+            onLayout={() => flat.current.scrollToEnd({ animated: true })}
+            data={messageList}
+            keyExtractor={(item, index) => "key" + index}
+            renderItem={({ item }) => (
+              <MessageItem
+                id={item.user_id}
+                title={item.createdAt}
+                subtitle={item.msg}
+              />
+            )}
+          />
+        </MessageArea>
+
+        <InputArea>
+          <TextInput
             placeholder="메세지 작성하기"
             value={message.msg}
             onChangeText={(text) => handleChange(text)}
             onSubmitEditing={sendMessage}
-          ></Input>
+          />
           <TouchableOpacity onPress={sendMessage}>
             <Feather name="arrow-up-circle" size={20} />
           </TouchableOpacity>
-        </Compose>
-      </Container>
-    </KeyboardAvoidingView>
+        </InputArea>
+      </KeyboardAvoidingView>
+    </Container>
   );
 };
 
 const Container = styled.View`
+  background-color: white;
+  flex: 1;
+`;
+
+const MessageArea = styled.View`
+  /* background-color: lightslategray; */
   flex: 1;
   justify-content: flex-end;
-  background-color: white;
+  width: 100%;
 `;
 
-const Compose = styled.View`
+const InputArea = styled.View`
+  /* background-color: darkturquoise; */
+  width: 80%;
+  height: 40px;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   align-self: center;
-  width: 80%;
-  border-radius: 50px;
   border: 1px solid ${colors.lightgray};
+  border-radius: 50px;
   padding: 0 20px;
   margin: 10px;
-`;
-
-const Input = styled.TextInput`
-  flex: 1;
-  height: 40px;
 `;
 
 export default MessageDetail;
