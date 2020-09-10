@@ -111,7 +111,6 @@ const Avatar = styled.Image`
 `;
 
 const AvatarEmpty = styled.View`
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   width: 70px;
