@@ -56,7 +56,7 @@ Desktop version in React can be found [here](http://www.github).
 
 ### colors
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/config-colors2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/config-colors2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/config-colors2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/config-colors2x.png)
 
 **Example**
 
