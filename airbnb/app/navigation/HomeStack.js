@@ -1,25 +1,25 @@
 import React from "react";
+
+//import navigation
 import { createStackNavigator } from "@react-navigation/stack";
-
-import Details from "../screens/Details";
-import Home from "../screens/Home";
-import AddGuest from "../screens/AddGuest";
-import RangePicker from "../screens/RangePicker";
-
-import { EvilIcons } from "@expo/vector-icons";
-import styled from "styled-components";
-import MainTab from "./MainTab";
-import Listings from "../screens/Listings";
-import ListTab from "./ListTab";
+import HomeTab from "./HomeTab";
 import ListStack from "./ListStack";
+
+//import screens
+import RangePicker from "../screens/RangePicker";
+import AddGuest from "../screens/AddGuest";
+
+//import styles and assets
+import styled from "styled-components";
+import { EvilIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
-const MainStack = () => (
+const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="MainTab"
-      component={MainTab}
+      name="HomeTab"
+      component={HomeTab}
       options={{ headerShown: false }}
     />
     <Stack.Screen
@@ -66,4 +66,4 @@ const IconWrapper = styled.View`
   margin-left: ${Platform.OS === "ios" ? "15px" : 0};
 `;
 
-export default MainStack;
+export default HomeStack;

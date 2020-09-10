@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
-import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+import { StyleSheet } from "react-native";
+
+//import libraries
+import { CalendarList } from "react-native-calendars";
 import _isEmpty from "lodash/isEmpty";
 import moment from "moment";
 
 //import components
-import { RoundedBtn, BtnTxtUnderline } from "../components/Button";
+import * as Button from "../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
-import { TouchableWithoutFeedback } from "react-native-gesture-handler";
+import colors from "../config/colors";
 
-const RangePicker = ({ navigation }) => {
-  const [selected, setSelected] = useState("");
+//import redux
+import { connect } from "react-redux";
+import { setStart, setEnd } from "../store/search";
+
+const RangePicker = (props) => {
   const [startDay, setStartDay] = useState({});
   const [endDay, setEndDay] = useState({});
   const [periodDay, setPeriodDay] = useState({});
@@ -24,14 +28,14 @@ const RangePicker = ({ navigation }) => {
     const end = moment.unix(endTimestamp);
     while (end.isAfter(start)) {
       period[start.format("YYYY-MM-DD")] = {
-        color: Colors.red,
+        color: colors.red,
         textColor: "white",
         startingDay: moment(start).unix() === startTimestamp,
       };
       start = start.add(1, "days");
     }
     period[end.format("YYYY-MM-DD")] = {
-      color: Colors.red,
+      color: colors.red,
       textColor: "white",
       endingDay: true,
     };
@@ -43,22 +47,10 @@ const RangePicker = ({ navigation }) => {
     const { dateString, day, month, year } = objDay;
     const timestamp = moment(dateString).unix();
 
-    // if (_isEmpty(startDay) && _isEmpty(endDay)) {
-    //   const period = {
-    //     [dateString]: {
-    //       color: Colors.red,
-    //       textColor: "white",
-    //       startingDay: true,
-    //     },
-    //   };
-    //   setStartDay(objDay);
-    //   setPeriodDay(period);
-    // }
-
     if (_isEmpty(startDay) || (!_isEmpty(startDay) && !_isEmpty(endDay))) {
       const period = {
         [dateString]: {
-          color: Colors.red,
+          color: colors.red,
           textColor: "white",
           // endingDay: true,
           startingDay: true,
@@ -79,14 +71,18 @@ const RangePicker = ({ navigation }) => {
       }
     }
   };
+  const periodArrays = Object.keys(periodDay);
 
-  console.log(startDay);
+  const onNavigate = () => {
+    props.setStart(periodArrays[0]);
+    props.setEnd(periodArrays[periodArrays.length - 1]);
+    props.navigation.navigate("AddGuest");
+  };
 
   return (
     <Container>
       <Detail>
         <CalendarList
-          ListHeaderComponent={<Text>hello</Text>}
           current={new Date()}
           style={styles.calendar}
           minDate={new Date()}
@@ -101,13 +97,29 @@ const RangePicker = ({ navigation }) => {
 
       <Next>
         <Left>
-          <BtnTxtUnderline color={Colors.gray} label="건너뛰기" />
+          <Button.BtnTxtUnderline
+            color={colors.gray}
+            label="건너뛰기"
+            onPress={() => props.navigation.navigate("AddGuest")}
+          />
         </Left>
         <BtnContainer>
-          <RoundedBtn
-            label="다음"
-            onPress={() => navigation.navigate("AddGuest")}
-          />
+          {periodArrays.length > 1 ? (
+            <Button.BtnContain
+              label="다음"
+              color={colors.red}
+              size="small"
+              disabled={false}
+              onPress={() => onNavigate()}
+            />
+          ) : (
+            <Button.BtnContain
+              label="다음"
+              color={colors.lightgray}
+              size="small"
+              disabled={true}
+            />
+          )}
         </BtnContainer>
       </Next>
     </Container>
@@ -129,7 +141,7 @@ const Next = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
@@ -137,39 +149,6 @@ const Left = styled.View``;
 
 const BtnContainer = styled.View`
   width: 30%;
-`;
-
-const Bottom = styled.View`
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 80px;
-  left: 0;
-  bottom: 0;
-  background-color: white;
-  flex-direction: row;
-  justify-content: flex-end;
-  border-top-width: 1px;
-  border-top-color: ${Colors.lightgray};
-`;
-
-const Flex = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Btn = styled.View`
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${Colors.lightgray};
-  border-radius: 6px;
-  margin-right: 20px;
-`;
-
-const BtnLabel = styled.Text`
-  padding: 16px 40px;
 `;
 
 const styles = StyleSheet.create({
@@ -184,4 +163,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RangePicker;
+export default connect(null, { setStart, setEnd })(RangePicker);

@@ -1,16 +1,14 @@
-import React, { useState } from "react";
-import { View, TextInput, Text, TouchableHighlight } from "react-native";
-import { Formik } from "formik";
+import React from "react";
+import { Text } from "react-native";
 import * as Yup from "yup";
 
 //import components
 import AppForm from "../components/forms/AppForm";
-import { AppInput, PwInput } from "../components/forms/AppInput";
+import * as TextInput from "../components/forms/AppInput";
 import SubmitBtn from "../components/forms/SubmitBtn";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
 import * as Typography from "../config/Typography";
 
 const validationSchema = Yup.object().shape({
@@ -27,12 +25,12 @@ const Login = ({ navigation }) => {
         </Header>
         <AppForm
           initialValues={{ email: "", password: "" }}
-          onSubmit={() => navigation.navigate("MainStack")}
+          onSubmit={() => navigation.navigate("HomeStack")}
           validationSchema={validationSchema}
         >
           <Input>
             <Text>Email</Text>
-            <AppInput
+            <TextInput.Default
               name="email"
               autoCapitalize="none"
               autoCorrect={false}
@@ -43,14 +41,14 @@ const Login = ({ navigation }) => {
           </Input>
           <Input>
             <Text>Password</Text>
-            <PwInput
+            <TextInput.Pw
               name="password"
               autoCapitalize="none"
               autoCorrect={false}
               textContentType="password"
-            ></PwInput>
+            />
           </Input>
-          <SubmitBtn title="로그인" />
+          <SubmitBtn title="Login" />
         </AppForm>
       </Main>
     </Container>

@@ -1,17 +1,23 @@
-import React from "react";
-import { Dimensions, View, Platform, StyleSheet, FlatList } from "react-native";
+import React, { useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  View,
+  Animated,
+  Text,
+} from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 //import components
 import ImgCarousel from "../components/ImgCarousel";
 import * as Highlights from "../components/Highlights";
-import * as Btn from "../components/Button";
-import { ListItem, IconList } from "../components/ListItem";
+import * as Button from "../components/Button";
+import * as List from "../components/List";
 import * as IconLabel from "../components/IconLabel";
 import { NavBar2 } from "../components/NavBar";
-
-//import patterns
-import * as Card from "../patterns/Card";
+import * as Card from "../components/Cards";
 
 //import screens
 
@@ -19,29 +25,95 @@ import * as Card from "../patterns/Card";
 import styled from "styled-components";
 import colors from "../config/colors";
 import * as Typography from "../config/Typography";
-import { FontAwesome } from "@expo/vector-icons";
 
 //import data
-import { AvailAmenities } from "../data/detaildata";
 import { review } from "../data/detailreview";
 
 const { width, height } = Dimensions.get("window");
 
 const Details = ({ navigation, route }) => {
   const listing = route.params;
+  const opacityValue = new Animated.Value(0);
+  const [headerOpacity, setHeaderOpacity] = useState(opacityValue);
+
+  const renderItem = ({ item, index }) => {
+    if (index === 0) {
+      return (
+        <View
+          style={{
+            width: width - 100,
+            marginLeft: 20,
+            marginTop: 5,
+            marginBottom: 5,
+            marginRight: 5,
+          }}
+        >
+          <Card.Review
+            imagexsmall={item.avatar}
+            title={item.username}
+            secondary={item.date}
+            content={item.comments}
+          />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ width: width - 100, margin: 5 }}>
+          <Card.Review
+            imagexsmall={item.avatar}
+            title={item.username}
+            secondary={item.date}
+            content={item.comments}
+          />
+        </View>
+      );
+    }
+  };
+
+  const handleScroll = (event) => {
+    const scrollPosition = event.nativeEvent.contentOffset.y;
+
+    if (scrollPosition > 70) {
+      Animated.timing(headerOpacity, {
+        toValue: 1,
+        duration: 50,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      Animated.timing(headerOpacity, {
+        toValue: 0,
+        duration: 0,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  const headerStyle = {
+    height: 70,
+    width: "100%",
+    backgroundColor: "white",
+    opacity: headerOpacity.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1],
+    }),
+    position: "absolute",
+    top: 0,
+    left: 0,
+  };
 
   return (
     <Container>
-      <NavBar2 nav="chevron-left" />
-      <Detail>
+      <View style={{ zIndex: 100 }}>
+        <Animated.View style={headerStyle}></Animated.View>
+        <NavBar2 nav="chevron-left" onPress={() => navigation.goBack()} />
+      </View>
+
+      <ScrollView
+        style={{ flex: 1 }}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+      >
         <ImgCarousel images={listing.images} />
-        <BackBtn>
-          <Btn.BtnCircle
-            iconName="chevron-left"
-            size={24}
-            onPress={() => navigation.goBack()}
-          ></Btn.BtnCircle>
-        </BackBtn>
 
         <MainWrapper>
           <Typography.H2>{listing.title}</Typography.H2>
@@ -50,13 +122,9 @@ const Details = ({ navigation, route }) => {
               icon="star"
               label="4.65"
               label2="(305)"
-              colors={colors.red}
+              color={colors.red}
             />
-            <IconLabel.MCI
-              icon="medal"
-              label="슈퍼호스트"
-              colors={colors.red}
-            />
+            <IconLabel.MCI icon="medal" label="슈퍼호스트" color={colors.red} />
             <Typography.SP>Cheju, 제주도, 한국</Typography.SP>
           </Subheading>
           <HLine />
@@ -78,7 +146,7 @@ const Details = ({ navigation, route }) => {
               숙소입니다. 제주 공항에서 자동차로 30분 거리에 있으며, 걸어서 8분
               거리에 버스정거장이 있고, 편의점은 걸어서 10분거리에 있습니다.
             </Typography.P>
-            <Btn.BtnTxtUnderline
+            <Button.BtnTxtUnderline
               label="더 보기"
               color={colors.gray}
               onPress={() => navigation.navigate("Description", listing)}
@@ -87,28 +155,28 @@ const Details = ({ navigation, route }) => {
           <HLine />
           <Section>
             <Typography.H2>Amenities</Typography.H2>
-            <IconList
+            <List.Default
               title="Elevator"
               icon="elevator"
               iconcolor={colors.gray}
             />
-            <IconList
+            <List.Default
               title="Kitchen"
               icon="food-variant"
               iconcolor={colors.gray}
             />
-            <IconList title="Wifi" icon="wifi" iconcolor={colors.gray} />
-            <IconList
+            <List.Default title="Wifi" icon="wifi" iconcolor={colors.gray} />
+            <List.Default
               title="Washer"
               icon="dishwasher"
               iconcolor={colors.gray}
             />
-            <IconList
+            <List.Default
               title="Cable TV"
               icon="youtube-tv"
               iconcolor={colors.gray}
             />
-            <Btn.BtnTxtUnderline
+            <Button.BtnTxtUnderline
               label="더 보기"
               color={colors.gray}
               onPress={() => navigation.navigate("Amenities", listing)}
@@ -132,44 +200,42 @@ const Details = ({ navigation, route }) => {
             </MapView>
           </Section>
           <HLine />
-          <Section>
+        </MainWrapper>
+        <Section>
+          <MarginContainer>
             <Typography.H2>Reviews</Typography.H2>
-            <FlatList
-              data={review.slice(0, 4)}
-              keyExtractor={(item) => item.id.toString()}
-              horizontal
-              decelerationRate={0}
-              snapToInterval={width - 90}
-              snapToAlignment="center"
-              scrollEnabled
-              showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => (
-                <View style={{ width: width - 100, margin: 5 }}>
-                  <Card.Box
-                    imagexsmall={item.avatar}
-                    title={item.username}
-                    subtitle={item.date}
-                    content={item.comments}
-                  />
-                </View>
-              )}
-            />
-            <Btn.BtnTxtUnderline
+          </MarginContainer>
+
+          <FlatList
+            data={review.slice(0, 4)}
+            keyExtractor={(item) => item.id.toString()}
+            horizontal
+            decelerationRate={0}
+            snapToInterval={width - 90}
+            snapToAlignment="center"
+            scrollEnabled
+            showsHorizontalScrollIndicator={false}
+            renderItem={renderItem}
+          />
+          <MarginContainer>
+            <Button.BtnTxtUnderline
               label="더 보기"
               color={colors.gray}
               onPress={() => navigation.navigate("Reviews", listing)}
             />
-          </Section>
-          <HLine />
-          <Section>
-            <Card.Default
+          </MarginContainer>
+        </Section>
+        <HLine />
+        <Section>
+          <MarginContainer>
+            <List.UserList
               image={null}
               title="호스트: Jinah Lee님"
-              subtitle="회원 가입일: 2018년 12월"
+              secondary="회원 가입일: 2018년 12월"
             />
-          </Section>
-        </MainWrapper>
-      </Detail>
+          </MarginContainer>
+        </Section>
+      </ScrollView>
       <Reserve>
         <View>
           <View style={{ display: "flex", flexDirection: "row" }}>
@@ -181,12 +247,13 @@ const Details = ({ navigation, route }) => {
             icon="star"
             label="4.65"
             label2="(305)"
-            colors={colors.red}
+            color={colors.red}
           />
         </View>
         <BtnContainer>
-          <Btn.BtnContain
+          <Button.BtnContain
             label="예약하기"
+            color={colors.red}
             onPress={() => navigation.navigate("Reserve_1", listing)}
           />
         </BtnContainer>
@@ -198,16 +265,6 @@ const Details = ({ navigation, route }) => {
 const Container = styled.View`
   flex: 1;
   background-color: white;
-`;
-
-const Detail = styled.ScrollView`
-  flex: 1;
-`;
-
-const BackBtn = styled.View`
-  position: absolute;
-  margin-top: ${Platform.OS === "ios" ? "40px" : "40px"};
-  margin-left: 20px;
 `;
 
 const MainWrapper = styled.View`
@@ -248,6 +305,10 @@ const HLine = styled.View`
 
 const BtnContainer = styled.View`
   width: 50%;
+`;
+
+const MarginContainer = styled.View`
+  margin-left: 20px;
 `;
 
 const styles = StyleSheet.create({

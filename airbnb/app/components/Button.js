@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  View,
-  Text,
   TouchableOpacity,
   Platform,
   TouchableWithoutFeedback,
@@ -10,76 +8,66 @@ import {
 import { EvilIcons, FontAwesome } from "@expo/vector-icons";
 
 import styled from "styled-components";
-import Colors from "../config/colors";
-import { PBold } from "../config/Typography";
+import colors from "../config/colors";
+import * as Typogrpahy from "../config/Typography";
 
-export const BtnContain = ({ label, onPress }) => {
+export const BtnContain = ({ color, disabled, label, onPress, icon, size }) => {
   return (
     <Container>
-      <TouchableOpacity onPress={onPress}>
-        <Filled>
-          <Label style={{ color: "white" }}>{label}</Label>
+      <TouchableOpacity onPress={onPress} disabled={disabled}>
+        <Filled style={color && { backgroundColor: color }}>
+          {size === "small" ? (
+            <Wrapper>
+              {icon && (
+                <FontAwesome
+                  name={icon}
+                  color="white"
+                  style={{ marginRight: 8 }}
+                />
+              )}
+              <Typogrpahy.pS color="white" bold={true}>
+                {label}
+              </Typogrpahy.pS>
+            </Wrapper>
+          ) : (
+            <Wrapper>
+              {icon && (
+                <FontAwesome
+                  name={icon}
+                  color="white"
+                  style={{ marginRight: 8 }}
+                />
+              )}
+              <Typogrpahy.Sub1 color="white" bold={true}>
+                {label}
+              </Typogrpahy.Sub1>
+            </Wrapper>
+          )}
         </Filled>
       </TouchableOpacity>
     </Container>
   );
 };
 
-export const BtnOutline = ({ disabled, label, onPress }) => {
+export const BtnOutline = ({ color, disabled, label, labelcolor, onPress }) => {
   return (
     <Container>
       <TouchableOpacity onPress={onPress} disabled={disabled}>
-        <Outlined>
-          <Label style={{ color: Colors.red }}>{label}</Label>
+        <Outlined style={{ borderWidth: 2, borderColor: color }}>
+          <Label style={{ color: labelcolor }}>{label}</Label>
         </Outlined>
       </TouchableOpacity>
     </Container>
   );
 };
 
-export const BtnText = ({ label, onPress }) => {
+export const BtnText = ({ color, label, onPress }) => {
   return (
     <Container>
       <TouchableOpacity onPress={onPress}>
         <LabelWrapper>
-          <Label style={{ color: Colors.red }}>{label}</Label>
+          <Label style={{ color }}>{label}</Label>
         </LabelWrapper>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
-export const RoundedButton = ({ label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress}>
-        <Rounded>
-          <BtnLabel>{label}</BtnLabel>
-        </Rounded>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
-export const RoundedBtn = ({ label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress}>
-        <Filled2>
-          <PBold colors="white">{label}</PBold>
-        </Filled2>
-      </TouchableOpacity>
-    </Container>
-  );
-};
-
-export const DisabledButton = ({ disabled, label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress} disabled={disabled}>
-        <Disabled>
-          <Label style={{ color: Colors.lightgray }}>{label}</Label>
-        </Disabled>
       </TouchableOpacity>
     </Container>
   );
@@ -105,41 +93,17 @@ export const BtnTxtUnderline = ({ color, label, onPress }) => {
   );
 };
 
-export const IconButton = ({ iconName, label, onPress }) => {
+export const FloatingButton = ({ iconName, label, onPress }) => {
   return (
     <Container>
-      {Platform.OS === "ios" ? (
-        <TouchableOpacity onPress={onPress}>
-          <IconWrapper elevation={3}>
-            <FontAwesome name={iconName} color="white" />
-            <BtnLabel style={{ color: "white", marginLeft: 6 }}>
-              {label}
-            </BtnLabel>
-          </IconWrapper>
-        </TouchableOpacity>
-      ) : (
-        <TouchableWithoutFeedback onPress={onPress}>
-          <IconWrapper elevation={3}>
-            <FontAwesome name={iconName} color="white" />
-            <BtnLabel style={{ color: "white", marginLeft: 6 }}>
-              {label}
-            </BtnLabel>
-          </IconWrapper>
-        </TouchableWithoutFeedback>
-      )}
-    </Container>
-  );
-};
-
-export const IconButton2 = ({ iconName, label, onPress }) => {
-  return (
-    <Container>
-      <TouchableOpacity onPress={onPress}>
-        <IconWrapper2>
+      <TouchableWithoutFeedback onPress={onPress}>
+        <FbWrapper elevation={3}>
           <FontAwesome name={iconName} color="white" />
-          <BtnLabel style={{ color: "white", marginLeft: 6 }}>{label}</BtnLabel>
-        </IconWrapper2>
-      </TouchableOpacity>
+          <Label style={{ color: "white", marginLeft: 6, fontSize: 13 }}>
+            {label}
+          </Label>
+        </FbWrapper>
+      </TouchableWithoutFeedback>
     </Container>
   );
 };
@@ -163,15 +127,21 @@ const Container = styled.View`
 const Filled = styled.View`
   justify-content: center;
   align-items: center;
-  background-color: ${Colors.red};
   border-radius: 26px;
   padding: 14px;
+  background-color: ${colors.gray};
+`;
+
+const Wrapper = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Outlined = styled.View`
   justify-content: center;
   align-items: center;
-  border: 2px solid ${Colors.red};
+
   border-radius: 26px;
   padding: 14px;
 `;
@@ -186,63 +156,33 @@ const Circle = styled.View`
   padding: 4px;
 `;
 
-const Rounded = styled.View`
-  justify-content: center;
-  align-items: center;
-  border: 1px solid ${Colors.lightgray};
-  border-radius: 26px;
-  padding: 14px;
-`;
-
 const Filled2 = styled.View`
   justify-content: center;
   align-items: center;
-  background-color: ${Colors.red};
+  background-color: ${colors.red};
   border-radius: 8px;
   padding: 14px;
 `;
 
-const IconWrapper = styled.View`
+const FbWrapper = styled.View`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: ${Colors.black};
+  background-color: ${colors.black};
   border-radius: 26px;
   padding: 14px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12);
 `;
 
-const IconWrapper2 = styled.View`
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: ${Colors.black};
-  border-radius: 8px;
-  padding: 14px;
-`;
-
 const Disabled = styled.View`
   justify-content: center;
   align-items: center;
-  border: 2px solid ${Colors.lightgray};
+  border: 2px solid ${colors.lightgray};
   border-radius: 26px;
   padding: 14px;
 `;
 
-const BtnLabel = styled.Text`
-  font-size: 13px;
-  letter-spacing: 1px;
-`;
-
 const Label = styled.Text`
-  ${Platform.select({
-    ios: {
-      fontFamily: "Avenir",
-    },
-    android: {
-      fontFamily: "Roboto",
-    },
-  })}
-  font-size: 17px;
+  font-size: 16px;
   font-weight: bold;
 `;

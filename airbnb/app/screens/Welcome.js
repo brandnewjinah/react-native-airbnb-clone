@@ -5,7 +5,7 @@ import * as Button from "../components/Button";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 import * as Typography from "../config/Typography";
 
 const WelcomeScreen = ({ navigation }) => {
@@ -14,32 +14,38 @@ const WelcomeScreen = ({ navigation }) => {
       <Main>
         <Header>
           <Logo source={require("../assets/airbnb_logo.png")}></Logo>
-          <Typography.H1 colors={Colors.red}>Welcome to Airbnb</Typography.H1>
+          <Typography.H1 color={colors.red}>Welcome to Airbnb</Typography.H1>
         </Header>
         <Options>
           <Btn>
             <Button.BtnContain
               label="Continue with Google"
-              onPress={() => console.log("tapped")}
+              color={colors.red}
+              labelcolor="white"
+              onPress={() => console.log("tbd")}
             />
           </Btn>
           <Btn>
             <Button.BtnOutline
               label="Create Account"
-              onPress={() => console.log("tapped")}
+              color={colors.red}
+              labelcolor={colors.red}
+              fontSize={13}
+              onPress={() => navigation.navigate("Signup")}
             />
           </Btn>
           <Btn>
             <Center>
               <Button.BtnText
                 label="Login"
+                color={colors.red}
                 onPress={() => navigation.navigate("Login")}
               />
             </Center>
           </Btn>
         </Options>
         <Terms>
-          <Typography.P colors={Colors.gray}>
+          <Typography.P color={colors.gray}>
             By tapping Continue, Create Account or More options, I agree to
             Airbnb's Terms of Service, Payments Terms of Service, Privacy Policy
             and Nondiscrimination Policy.
@@ -86,4 +92,5 @@ const Center = styled.View`
 const Terms = styled.View`
   margin-top: 20px;
 `;
+
 export default WelcomeScreen;

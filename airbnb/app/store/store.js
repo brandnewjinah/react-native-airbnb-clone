@@ -1,4 +1,23 @@
-import { createStore } from "redux";
-import { reducer } from "./reducer";
+import { createStore, applyMiddleware } from "redux";
+// import search from "./search";
+import rootReducer from "./reducer";
+import thunk from "redux-thunk";
 
-export const store = createStore(reducer);
+// const initialStore = {
+//   city: "",
+//   startDay: "",
+//   endDay: "",
+//   adult: 0,
+//   child: 0,
+//   infant: 0,
+// };
+
+const middleware = [thunk];
+
+const store = createStore(
+  rootReducer,
+  // initialStore,
+  applyMiddleware(...middleware)
+);
+
+export default store;

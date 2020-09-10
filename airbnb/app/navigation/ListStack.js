@@ -1,9 +1,13 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 
-import ListMap from "../screens/ListMap";
+//import navigation
+import { createStackNavigator } from "@react-navigation/stack";
 import ListStack2 from "./ListStack2";
 
+//import screens
+import ListMap from "../screens/ListMap";
+
+//import styles and assets
 import styled from "styled-components";
 
 const Stack = createStackNavigator();

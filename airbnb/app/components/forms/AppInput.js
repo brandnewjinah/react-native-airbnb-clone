@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dimensions, TextInput, TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { useFormikContext } from "formik";
 
 //import components
@@ -7,9 +7,10 @@ import ErrorMessage from "./ErrorMessage";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../../config/colors";
+import colors from "../../config/colors";
+import { EvilIcons } from "@expo/vector-icons";
 
-export const AppInput = ({ name, ...otherProps }) => {
+export const Default = ({ name, ...otherProps }) => {
   const { setFieldTouched, handleChange, errors, touched } = useFormikContext();
 
   return (
@@ -24,7 +25,7 @@ export const AppInput = ({ name, ...otherProps }) => {
   );
 };
 
-export const PwInput = ({ name, ...otherProps }) => {
+export const Pw = ({ name, ...otherProps }) => {
   const { setFieldTouched, handleChange, errors, touched } = useFormikContext();
   const [hide, setHide] = useState(true);
 
@@ -50,6 +51,31 @@ export const PwInput = ({ name, ...otherProps }) => {
   );
 };
 
+export const DefaultInput = ({ name, value, onChangeText, ...otherProps }) => {
+  return (
+    <Container>
+      <Inputfield
+        name={name}
+        value={value}
+        onChangeText={onChangeText}
+        autoCapitalize="none"
+        autoCorrect={false}
+        clearButtonMode="always"
+        {...otherProps}
+      ></Inputfield>
+    </Container>
+  );
+};
+
+export const Search = ({ ...otherProps }) => {
+  return (
+    <SearchArea>
+      <EvilIcons name="search" size={20} color={colors.black} />
+      <SearchInput autoFocus={true} {...otherProps} />
+    </SearchArea>
+  );
+};
+
 const Container = styled.View`
   width: 100%;
 `;
@@ -66,10 +92,23 @@ const InputLine = styled.View`
   justify-content: space-between;
   align-items: center;
   border-bottom-width: 1px;
-  border-bottom-color: ${Colors.lightgray};
+  border-bottom-color: ${colors.lightgray};
 `;
 
 const Input = styled.TextInput`
   width: 90%;
   height: 40px;
+`;
+
+const SearchArea = styled.View`
+  flex-direction: row;
+  align-items: center;
+  width: 80%;
+  border: 1px solid ${colors.lightgray};
+  border-radius: 25px;
+  padding: 10px;
+`;
+
+const SearchInput = styled.TextInput`
+  margin-left: 10px;
 `;

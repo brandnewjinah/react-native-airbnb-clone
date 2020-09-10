@@ -1,169 +1,122 @@
 import React, { useState } from "react";
-
-import styled from "styled-components";
-import {
-  View,
-  Text,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-} from "react-native";
+import { View } from "react-native";
 
 //import components
-import {
-  FilledButton2,
-  BtnTxtUnderline,
-  IconButton2,
-} from "../components/Button";
+import * as Button from "../components/Button";
+import Counter from "../components/Counter";
 
 //import styles and assets
-import { AntDesign } from "@expo/vector-icons";
-import { H3, P } from "../config/Typography";
-import Colors from "../config/colors";
+import styled from "styled-components";
+import * as Typography from "../config/Typography";
+import colors from "../config/colors";
 
-const AddGuest = ({ navigation }) => {
+//import redux
+import { connect } from "react-redux";
+import { addAdult, addChild, addInfant } from "../store/search";
+
+const AddGuest = (props) => {
   const [adult, setAdult] = useState(0);
   const [children, setChildren] = useState(0);
   const [infant, setInfant] = useState(0);
 
-  const adultminus = () => {
-    if (adult > 0) {
-      setAdult(adult - 1);
-    }
-  };
-
-  const adultplus = () => {
-    if (adult < 16) {
-      setAdult(adult + 1);
-    }
-  };
-
-  const childrenminus = () => {
-    if (children > 0) {
-      setChildren(children - 1);
-    }
-  };
-
-  const childrenplus = () => {
-    if (children < 5) {
-      setChildren(children + 1);
-    }
-  };
-
-  const infantrenminus = () => {
-    if (infant > 0) {
-      setInfant(infant - 1);
-    }
-  };
-
-  const infantplus = () => {
-    if (infant < 5) {
-      setInfant(infant + 1);
-    }
+  const onNavigate = () => {
+    props.addAdult(adult);
+    props.addChild(children);
+    props.addInfant(infant);
+    props.navigation.navigate("ListStack");
   };
 
   return (
     <Container>
       <MainWrapper>
-        <Category>
+        <Flex>
           <View>
-            <H3>성인</H3>
-            <P>만 13세 이상</P>
+            <Typography.H3>성인</Typography.H3>
+            <Typography.P color={colors.gray}>만 13세 이상</Typography.P>
           </View>
-          <Counter>
-            <TouchableOpacity
-              onPress={() => {
-                adultminus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="minus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-            <CountWrapper>
-              <Text>{adult}</Text>
-            </CountWrapper>
-            <TouchableOpacity
-              onPress={() => {
-                adultplus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="plus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-          </Counter>
-        </Category>
+
+          <View style={{ width: "30%" }}>
+            <Counter
+              result={adult}
+              onMinus={(item) => setAdult(item)}
+              onPlus={(item) => setAdult(item)}
+            />
+          </View>
+        </Flex>
         <HLine />
-        <Category>
+        <Flex>
           <View>
-            <H3>어린이</H3>
-            <P>2-12세</P>
+            <Typography.H3>어린이</Typography.H3>
+            <Typography.P color={colors.gray}>2-12세</Typography.P>
           </View>
-          <Counter>
-            <TouchableOpacity
-              onPress={() => {
-                childrenminus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="minus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-            <CountWrapper>
-              <Text>{children}</Text>
-            </CountWrapper>
-            <TouchableOpacity
-              onPress={() => {
-                childrenplus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="plus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-          </Counter>
-        </Category>
+
+          <View style={{ width: "30%" }}>
+            <Counter
+              result={children}
+              onMinus={(item) => setChildren(item)}
+              onPlus={(item) => setChildren(item)}
+            />
+          </View>
+        </Flex>
         <HLine />
-        <Category>
+        <Flex>
           <View>
-            <H3>유아</H3>
-            <P>2세 미만</P>
+            <Typography.H3>유아</Typography.H3>
+            <Typography.P color={colors.gray}>2세 미만</Typography.P>
           </View>
-          <Counter>
-            <TouchableOpacity
-              onPress={() => {
-                infantrenminus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="minus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-            <CountWrapper>
-              <Text>{infant}</Text>
-            </CountWrapper>
-            <TouchableOpacity
-              onPress={() => {
-                infantplus();
-              }}
-            >
-              <CountBtnWrapper>
-                <AntDesign name="plus" />
-              </CountBtnWrapper>
-            </TouchableOpacity>
-          </Counter>
-        </Category>
+
+          <View style={{ width: "30%" }}>
+            <Counter
+              result={infant}
+              onMinus={(item) => setInfant(item)}
+              onPlus={(item) => setInfant(item)}
+            />
+          </View>
+        </Flex>
       </MainWrapper>
       <Next>
         <Left>
-          <BtnTxtUnderline color={Colors.gray} label="건너뛰기" />
+          <Button.BtnTxtUnderline
+            color={colors.gray}
+            label="건너뛰기"
+            onPress={() => props.navigation.navigate("ListStack")}
+          />
         </Left>
         <BtnContainer>
-          <IconButton2
-            iconName="search"
-            label="다음"
-            onPress={() => navigation.navigate("ListStack")}
-          />
+          {/* {adult > 0 ? (
+            <Button.IconButton
+              iconName="search"
+              label="다음"
+              color={colors.red}
+              disabled={false}
+              onPress={() => onNavigate()}
+            />
+          ) : (
+            <Button.IconButton
+              iconName="search"
+              label="다음"
+              color={colors.lightgray}
+              disabled={true}
+            />
+          )} */}
+          {adult > 0 ? (
+            <Button.BtnContain
+              icon="search"
+              label="다음"
+              color={colors.red}
+              size="small"
+              disabled={false}
+              onPress={() => onNavigate()}
+            />
+          ) : (
+            <Button.BtnContain
+              icon="search"
+              label="다음"
+              color={colors.lightgray}
+              size="small"
+              disabled={true}
+            />
+          )}
         </BtnContainer>
       </Next>
     </Container>
@@ -186,7 +139,7 @@ const Next = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
@@ -196,64 +149,19 @@ const BtnContainer = styled.View`
   width: 30%;
 `;
 
-const Category = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const Counter = styled.View`
-  flex-direction: row;
-  align-items: center;
-`;
-
-const CountBtnWrapper = styled.View`
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-  border: 1px solid ${Colors.gray};
-  justify-content: center;
-  align-items: center;
-`;
-
-const CountWrapper = styled.View`
-  justify-content: center;
-  align-items: center;
-  padding: 0 15px;
-`;
-
 const HLine = styled.View`
   width: 100%;
   margin: 0 auto;
   height: 1px;
-  background-color: ${Colors.faintgray};
+  background-color: ${colors.faintgray};
   margin: 20px 0;
 `;
 
-const Bottom = styled.View`
-  align-items: center;
-  position: absolute;
-  width: 100%;
-  height: 80px;
-  left: 0;
-  bottom: 0;
-  background-color: white;
+const Flex = styled.View`
   flex-direction: row;
-  justify-content: flex-end;
-  border-top-width: 1px;
-  border-top-color: ${Colors.lightgray};
-`;
-
-const Btn = styled.View`
-  justify-content: center;
   align-items: center;
-
-  background-color: ${Colors.lightgray};
-  border-radius: 6px;
-  margin-right: 20px;
+  justify-content: space-between;
+  margin: 15px 0 10px 0;
 `;
 
-const BtnLabel = styled.Text`
-  padding: 16px 40px;
-`;
-
-export default AddGuest;
+export default connect(null, { addAdult, addChild, addInfant })(AddGuest);

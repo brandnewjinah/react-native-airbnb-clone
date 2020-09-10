@@ -4,18 +4,64 @@ import { Text, Platform } from "react-native";
 import styled from "styled-components";
 import colors from "../config/colors";
 
-export const H = ({ children, colors }) => {
+export const H = ({ children, color }) => {
   return (
     <Container>
-      <HeadingMain style={{ color: colors }}>{children}</HeadingMain>
+      <HeadingMain style={{ color }}>{children}</HeadingMain>
     </Container>
   );
 };
 
-export const H1 = ({ children, colors }) => {
+export const H1 = ({ children, color }) => {
   return (
     <Container>
-      <Heading1 style={{ color: colors }}>{children}</Heading1>
+      <Heading1 style={{ color }}>{children}</Heading1>
+    </Container>
+  );
+};
+
+export const H3 = ({ children, color }) => {
+  return (
+    <Container>
+      <Heading3 style={{ color }}>{children}</Heading3>
+    </Container>
+  );
+};
+
+export const H4 = ({ bold, children, color }) => {
+  return (
+    <Container>
+      <Text style={bold && { fontWeight: "bold" }}>
+        <Heading4 style={{ color }}>{children}</Heading4>
+      </Text>
+    </Container>
+  );
+};
+
+export const P = ({ bold, children, color, numberOfLines }) => {
+  return (
+    <Container numberOfLines={numberOfLines}>
+      <Text style={bold && { fontWeight: "bold" }}>
+        <Paragraph style={{ color }}>{children}</Paragraph>
+      </Text>
+    </Container>
+  );
+};
+
+export const Sub1 = ({ bold, children, color }) => {
+  return (
+    <Container>
+      <Text style={bold && { fontWeight: "bold" }}>
+        <Subtitle1 style={{ color }}>{children}</Subtitle1>
+      </Text>
+    </Container>
+  );
+};
+
+export const SP = ({ children, color }) => {
+  return (
+    <Container>
+      <SmallParagraph style={{ color }}>{children}</SmallParagraph>
     </Container>
   );
 };
@@ -28,32 +74,6 @@ export const H2 = ({ children, colors }) => {
   );
 };
 
-export const H3 = ({ children, colors }) => {
-  return (
-    <Container>
-      <Heading3 style={{ color: colors }}>{children}</Heading3>
-    </Container>
-  );
-};
-
-export const H4 = ({ bold, children, colors }) => {
-  return (
-    <Container>
-      <Text style={bold && { fontWeight: "bold" }}>
-        <Heading4 style={{ color: colors }}>{children}</Heading4>
-      </Text>
-    </Container>
-  );
-};
-
-export const Sub1 = ({ children, colors }) => {
-  return (
-    <Container>
-      <Subtitle1 style={{ color: colors }}>{children}</Subtitle1>
-    </Container>
-  );
-};
-
 export const Sub2 = ({ children, colors }) => {
   return (
     <Container>
@@ -62,18 +82,12 @@ export const Sub2 = ({ children, colors }) => {
   );
 };
 
-export const P = ({ children, color, numberOfLines }) => {
-  return (
-    <Container numberOfLines={numberOfLines}>
-      <Paragraph style={{ color: color }}>{children}</Paragraph>
-    </Container>
-  );
-};
-
-export const pS = ({ children, colors }) => {
+export const pS = ({ bold, children, color }) => {
   return (
     <Container>
-      <ParagraphSmall style={{ color: colors }}>{children}</ParagraphSmall>
+      <Text style={bold && { fontWeight: "bold" }}>
+        <ParagraphSmall style={{ color }}>{children}</ParagraphSmall>
+      </Text>
     </Container>
   );
 };
@@ -86,18 +100,10 @@ export const PBold = ({ children, colors }) => {
   );
 };
 
-export const SP = ({ children, colors }) => {
+export const Cap = ({ children, color }) => {
   return (
     <Container>
-      <SmallParagraph style={{ color: colors }}>{children}</SmallParagraph>
-    </Container>
-  );
-};
-
-export const Cap = ({ children, colors }) => {
-  return (
-    <Container>
-      <Caption style={{ color: colors }}>{children}</Caption>
+      <Caption style={{ color }}>{children}</Caption>
     </Container>
   );
 };

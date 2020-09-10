@@ -1,8 +1,10 @@
 import React from "react";
-import { View, Text, TouchableWithoutFeedback } from "react-native";
+import { View, Text, TouchableWithoutFeedback, Platform } from "react-native";
+
+//import components
+import * as Btn from "../components/Button";
 
 import { EvilIcons } from "@expo/vector-icons";
-
 import styled from "styled-components";
 import Colors from "../config/colors";
 
@@ -26,11 +28,13 @@ export const NavBar2 = ({ nav, title, action, onPress }) => {
   return (
     <Container2>
       <Bar>
-        <Back>
-          <TouchableWithoutFeedback onPress={onPress}>
-            <EvilIcons name={nav} size={30} />
-          </TouchableWithoutFeedback>
-        </Back>
+        <BackBtn>
+          <Btn.BtnCircle
+            iconName="chevron-left"
+            size={24}
+            onPress={onPress}
+          ></Btn.BtnCircle>
+        </BackBtn>
         {title ? <Title>{title}</Title> : <Title></Title>}
         {action ? <Action>{action}</Action> : <Action></Action>}
       </Bar>
@@ -63,14 +67,12 @@ const Container = styled.View`
 `;
 
 const Container2 = styled.View`
-  height: 60px;
-  border-bottom-width: 1px;
-  border-bottom-color: ${Colors.faintgray};
+  height: 50px;
   justify-content: center;
   align-items: center;
   position: absolute;
   top: 0;
-  left: 0;
+  left: -10px;
   z-index: 100;
 `;
 
@@ -89,6 +91,11 @@ const Bar = styled.View`
 const Back = styled.Text`
   width: 25%;
   padding-top: 18px;
+`;
+
+const BackBtn = styled.View`
+  position: absolute;
+  margin-top: ${Platform.OS === "ios" ? "5px" : "5px"};
 `;
 
 const Title = styled.Text``;

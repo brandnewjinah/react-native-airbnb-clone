@@ -17,7 +17,6 @@ import MapCard from "../components/MapCard";
 //import styles and assets
 import styled from "styled-components";
 import { EvilIcons } from "@expo/vector-icons";
-import navigationTheme from "../navigation/navigationTheme";
 
 //import data
 // import { rooms } from "../data/testdata";
@@ -83,7 +82,7 @@ const ListMap = ({ navigation, route, closeBtn, showListing }) => {
 
     const scale = mapAnimation.interpolate({
       inputRange,
-      outputRange: [1, 1.5, 1],
+      outputRange: [1, 1.25, 1],
       extrapolate: "clamp",
     });
 
@@ -112,26 +111,37 @@ const ListMap = ({ navigation, route, closeBtn, showListing }) => {
         style={styles.map}
         initialRegion={state.region}
       >
-        {state.rooms.map((room, index) => (
-          <Marker
-            key={index}
-            coordinate={room.coordinate}
-            onPress={(e) => onMarkerPress(e)}
-          >
-            {/* {room.id === 1 ? (
-              <CustomMarkerCurrent>
-                <Text>${room.price}</Text>
-              </CustomMarkerCurrent>
-            ) : (
-              <CustomMarker>
-                <Text>${room.price}</Text>
-              </CustomMarker>
-            )} */}
-            <CustomMarker>
-              <Text>${room.price}</Text>
-            </CustomMarker>
-          </Marker>
-        ))}
+        {state.rooms.map((room, index) => {
+          const scaleStyle = {
+            transform: [
+              {
+                scale: interpolations[index].scale,
+              },
+            ],
+          };
+          return (
+            <Marker
+              key={index}
+              coordinate={room.coordinate}
+              onPress={(e) => onMarkerPress(e)}
+            >
+              <Animated.View
+                style={[
+                  {
+                    borderRadius: 20,
+                    paddingVertical: 6,
+                    paddingHorizontal: 16,
+                  },
+                  scaleStyle,
+                ]}
+              >
+                <CustomMarker>
+                  <Text>${room.price}</Text>
+                </CustomMarker>
+              </Animated.View>
+            </Marker>
+          );
+        })}
       </MapView>
 
       <CloseBtn>

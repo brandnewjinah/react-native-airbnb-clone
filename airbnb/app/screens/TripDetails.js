@@ -3,12 +3,12 @@ import { View, Text, StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 
 //import components
-import { ListItem } from "../components/ListItem";
+import * as List from "../components/List";
 
 //import styles and assets
 import styled from "styled-components";
-import { H3, SP, P, Sub1, Cap } from "../config/Typography";
-import Colors from "../config/colors";
+import * as Typography from "../config/Typography";
+import colors from "../config/colors";
 
 //import data
 
@@ -36,46 +36,46 @@ const TripDetails = ({ route }) => {
       </MapView>
       <Main>
         <View style={{ marginBottom: 20 }}>
-          <H3>{trip.title}</H3>
+          <Typography.H3>{trip.title}</Typography.H3>
         </View>
 
         <HLine />
         <Checkin>
           <View>
-            <Cap colors={Colors.gray}>체크인</Cap>
-            <Sub1>{trip.check_in_date}</Sub1>
+            <Typography.Cap color={colors.gray}>체크인</Typography.Cap>
+            <Typography.Sub1>{trip.check_in_date}</Typography.Sub1>
           </View>
           <View>
-            <Cap colors={Colors.gray}>체크아웃</Cap>
-            <Sub1>{trip.check_out_date}</Sub1>
+            <Typography.Cap color={colors.gray}>체크아웃</Typography.Cap>
+            <Typography.Sub1>{trip.check_out_date}</Typography.Sub1>
           </View>
         </Checkin>
         <HLine />
         <Reservation>
           <View>
-            <Cap colors={Colors.gray} style={{ marginBottom: 6 }}>
+            <Typography.Cap color={colors.gray} style={{ marginBottom: 6 }}>
               예약번호
-            </Cap>
-            <Sub1>{trip.reservation}</Sub1>
+            </Typography.Cap>
+            <Typography.Sub1>{trip.reservation}</Typography.Sub1>
           </View>
         </Reservation>
         <HLine />
         <Host>
-          <ListItem
+          <List.UserList
             title="호스트: Jinah Lee님"
             subtitle="회원 가입일: 2018년 12월"
-            image={require("../assets/profile.jpg")}
-          ></ListItem>
+            // image={require("../assets/profile.jpg")}
+          ></List.UserList>
         </Host>
         <HLine />
         <Rules>
           <View>
-            <Cap colors={Colors.gray}>규칙</Cap>
-            <P>-Smoke free</P>
-            <P>-No pets allowed</P>
-            <P>-Self check-in / out</P>
-            <P>-Take off your shoes inside</P>
-            <P>-Keep place clean</P>
+            <Typography.Cap color={colors.gray}>규칙</Typography.Cap>
+            <Typography.P>-Smoke free</Typography.P>
+            <Typography.P>-No pets allowed</Typography.P>
+            <Typography.P>-Self check-in / out</Typography.P>
+            <Typography.P>-Take off your shoes inside</Typography.P>
+            <Typography.P>-Keep place clean</Typography.P>
           </View>
         </Rules>
       </Main>
@@ -99,7 +99,7 @@ const Checkin = styled.View`
 `;
 const HLine = styled.View`
   border-bottom-width: 1px;
-  border-bottom-color: ${Colors.lightgray};
+  border-bottom-color: ${colors.lightgray};
 `;
 
 const Host = styled.View`

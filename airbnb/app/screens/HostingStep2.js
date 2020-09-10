@@ -1,28 +1,22 @@
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 
 //import components
-import { AppInput } from "../components/forms/AppInput";
-import AppForm from "../components/forms/AppForm";
-import AppPicker from "../components/AppPicker";
-import Counter from "../components/Counter";
+
 import ImageInputList from "../components/ImageInputList";
 
 //import styles and assets
 import styled from "styled-components";
 import { H, Sub1, P } from "../config/Typography";
-import Colors from "../config/colors";
-import { RoundedBtn } from "../components/Button";
+import colors from "../config/colors";
+import * as Button from "../components/Button";
 
-const HostingStep2 = ({ navigation }) => {
+//import redux
+import { connect } from "react-redux";
+import { setImages } from "../store/host";
+
+const HostingStep2 = (props) => {
   const [imageUris, setImageUris] = useState([]);
 
   const handleAdd = (uri) => {
@@ -33,11 +27,16 @@ const HostingStep2 = ({ navigation }) => {
     setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
   };
 
+  const onNavigate = () => {
+    props.setImages(imageUris);
+    props.navigation.navigate("HostingStep3");
+  };
+
   return (
     <Container>
       <Main>
         <H>숙소 사진을 추가하세요</H>
-        <Sub1 colors={Colors.darkgray}>
+        <Sub1 colors={colors.darkgray}>
           멋진 사진으로 숙소가 돋보이게 해주세요
         </Sub1>
 
@@ -58,9 +57,11 @@ const HostingStep2 = ({ navigation }) => {
       <Next>
         <Left></Left>
         <BtnContainer>
-          <RoundedBtn
+          <Button.BtnContain
             label="다음"
-            onPress={() => navigation.navigate("HostingStep3")}
+            size="small"
+            color={colors.red}
+            onPress={() => onNavigate()}
           />
         </BtnContainer>
       </Next>
@@ -84,7 +85,7 @@ const Next = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
@@ -109,4 +110,4 @@ const Flex = styled.View`
   margin: 15px 0 10px 0;
 `;
 
-export default HostingStep2;
+export default connect(null, { setImages })(HostingStep2);

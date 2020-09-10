@@ -4,14 +4,14 @@ import React from "react";
 import styled from "styled-components";
 import colors from "../config/colors";
 import { FontAwesome } from "@expo/vector-icons";
-import { P } from "../config/Typography";
+import * as Typography from "../config/Typography";
 
 const Rating = ({ rating, reviews }) => {
   return (
     <Container>
       <FontAwesome name="star" color={colors.red} />
-      <P>{rating}</P>
-      <P colors={colors.gray}>{`(${reviews})`}</P>
+      <Typography.P>{rating}</Typography.P>
+      <Typography.P color={colors.gray}>{` (${reviews})`}</Typography.P>
     </Container>
   );
 };
@@ -19,6 +19,7 @@ const Rating = ({ rating, reviews }) => {
 const Container = styled.View`
   display: flex;
   flex-direction: row;
+  align-items: center;
 `;
 
 export default Rating;

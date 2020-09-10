@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, FlatList } from "react-native";
 
-//import patterns
-import * as Card from "../../patterns/Card";
+//import components
+import * as List from "../../components/List";
 
 //import styles and assets
 import styled from "styled-components";
@@ -23,10 +23,10 @@ const Reviews = () => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <View>
-            <Card.Default
+            <List.UserList
               imagesmall={item.avatar}
               title={item.username}
-              subtitle={item.date}
+              secondary={item.date}
             />
             <Typography.P color={colors.black}>{item.comments}</Typography.P>
           </View>

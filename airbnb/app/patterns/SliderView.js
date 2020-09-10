@@ -2,17 +2,17 @@ import React from "react";
 import { Dimensions, View, StyleSheet, FlatList } from "react-native";
 
 //import components
-import ImgSliderItem from "./ImgSliderItem";
-import Rating from "./Rating";
+import ImgSliderItem from "../components/ImgSliderItem";
+import Rating from "../components/Rating";
 
 //import styles and assets
-import Colors from "../config/colors";
-import { H4, PBold } from "../config/Typography";
+import colors from "../config/colors";
+import * as Typography from "../config/Typography";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("window");
 
-const CardView = ({ images, title, subtitle, rating, reviews, onPress }) => {
+const SliderView = ({ images, title, subtitle, rating, reviews, onPress }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <View style={styles.container}>
@@ -35,10 +35,10 @@ const CardView = ({ images, title, subtitle, rating, reviews, onPress }) => {
       <View style={styles.details}>
         <Rating rating={rating} reviews={reviews} />
         <View style={styles.title}>
-          <H4 colors={Colors.black}>{title}</H4>
+          <Typography.H4 colors={colors.black}>{title}</Typography.H4>
         </View>
 
-        <PBold>{`$${subtitle}`}</PBold>
+        <Typography.PBold>{`$${subtitle}`}</Typography.PBold>
       </View>
     </TouchableWithoutFeedback>
   );
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CardView;
+export default SliderView;

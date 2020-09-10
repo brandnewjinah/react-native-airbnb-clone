@@ -4,7 +4,7 @@ import { TouchableOpacity, Text } from "react-native";
 //import styles and assets
 import styled from "styled-components";
 import { AntDesign } from "@expo/vector-icons";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 
 const Counter = ({ result, onMinus, onPlus }) => {
   return (
@@ -29,7 +29,7 @@ const Counter = ({ result, onMinus, onPlus }) => {
         <TouchableOpacity
           onPress={() => {
             if (result < 16) {
-              onMinus(result + 1);
+              onPlus(result + 1);
             }
           }}
         >
@@ -57,7 +57,7 @@ const CountBtnWrapper = styled.View`
   width: 30px;
   height: 30px;
   border-radius: 15px;
-  border: 1px solid ${Colors.gray};
+  border: 1px solid ${colors.gray};
   justify-content: center;
   align-items: center;
 `;

@@ -2,7 +2,7 @@ import React from "react";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../../config/colors";
+import colors from "../../config/colors";
 
 const ErrorMessage = ({ error, visible }) => {
   if (!visible || !error) return null;
@@ -11,7 +11,7 @@ const ErrorMessage = ({ error, visible }) => {
 
 const ErrorText = styled.Text`
   font-size: ${Platform.OS === "android" ? "14px" : "12px"};
-  color: ${Colors.red};
+  color: ${colors.red};
   margin-top: 6px;
 `;
 export default ErrorMessage;

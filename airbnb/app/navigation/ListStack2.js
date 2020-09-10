@@ -1,13 +1,17 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 
+//import navigation
+import { createStackNavigator } from "@react-navigation/stack";
 import ListTab from "../navigation/ListTab";
+
+//import screens
 import Details from "../screens/Details";
 import Description from "../screens/details/Description";
 import Amenities from "../screens/details/Amenities";
 import Reserve_1 from "../screens/Reserve_1";
 import Reviews from "../screens/details/Reviews";
 
+//import styles and assets
 import styled from "styled-components";
 import { EvilIcons } from "@expo/vector-icons";
 

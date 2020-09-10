@@ -1,11 +1,11 @@
 import React from "react";
 import { View, FlatList, Text, SectionList, StatusBar } from "react-native";
 
-import { ListItem, SingleItemTap } from "../components/ListItem";
+import * as List from "../components/List";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 import { Cap } from "../config/Typography";
 
 const AccountItems = [
@@ -34,63 +34,50 @@ const AccountItems = [
 
 const Accounts = ({ navigation }) => {
   return (
-    <Common>
-      <Container>
-        <SectionList
-          contentContainerStyle={{ paddingVertical: 40 }}
-          ListHeaderComponent={
-            <ListItem
-              title="Jinah"
-              subtitle="View Profile"
-              image={require("../assets/profile.jpg")}
-            />
-          }
-          sections={AccountItems}
-          keyExtractor={(item, index) => item + index}
-          renderSectionHeader={({ section: { title } }) => (
-            <View style={{ marginLeft: 20, marginTop: 30, marginBottom: 10 }}>
-              <Cap colors={Colors.gray}>{title}</Cap>
-            </View>
-          )}
-          stickySectionHeadersEnabled={false}
-          renderItem={({ item }) => (
-            <SingleItemTap
-              title={item.title}
-              icon={item.icon}
-              iconcolor={Colors.darkgray}
-              // onPress={() => console.log("selected", item)}
-              onPress={() => navigation.navigate(`${item.screen}`)}
-            />
-          )}
-          ItemSeparatorComponent={() => <HLine />}
-        />
-      </Container>
-    </Common>
+    <Container>
+      <SectionList
+        contentContainerStyle={{ paddingVertical: 40, paddingHorizontal: 20 }}
+        ListHeaderComponent={
+          <List.UserList
+            title="Jinah"
+            subtitle="View Profile"
+            // image={require("../assets/profile.jpg")}
+          />
+        }
+        sections={AccountItems}
+        keyExtractor={(item, index) => item + index}
+        renderSectionHeader={({ section: { title } }) => (
+          <View style={{ marginTop: 30, marginBottom: 10 }}>
+            <Cap color={colors.gray}>{title}</Cap>
+          </View>
+        )}
+        stickySectionHeadersEnabled={false}
+        renderItem={({ item }) => (
+          <List.Default
+            title={item.title}
+            icon={item.icon}
+            iconcolor={colors.darkgray}
+            // onPress={() => console.log("selected", item)}
+            // onPress={() => navigation.navigate(`${item.screen}`)}
+          />
+        )}
+        ItemSeparatorComponent={() => <HLine />}
+      />
+    </Container>
   );
 };
-
-const Common = styled.SafeAreaView`
-  background-color: white;
-  ${Platform.select({
-    android: {
-      paddingTop: StatusBar.currentHeight,
-    },
-  })}
-
-  flex: 1;
-`;
 
 const Container = styled.View`
   flex: 1;
   background-color: white;
-  padding: 20px;
+  padding-top: 20px;
 `;
 
 const HLine = styled.View`
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   height: 1px;
-  background-color: ${Colors.lightgray};
+  background-color: ${colors.lightgray};
 `;
 
 export default Accounts;
