@@ -94,7 +94,7 @@ const Common = styled.SafeAreaView`
 
 **Types**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Typography2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Typography2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Typography2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/Typography2x.png)
 
 **Example**
 
@@ -108,7 +108,7 @@ import * as Typography from "../config/typography.js";
 
 **Button Types**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/Buttons2x.png)
 
  1. Contained Button
 
@@ -124,7 +124,7 @@ import * as Typography from "../config/typography.js";
 
 **Anatomy**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons_Anatomy2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons_Anatomy2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Buttons_Anatomy2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/Buttons_Anatomy2x.png)
 
 **Example**
 
@@ -150,7 +150,7 @@ import * as Button from "../components/Button.js";
 
 **List Types**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/List2x.png)
 
  1. Default list item with contained icon 
 
@@ -160,7 +160,7 @@ import * as Button from "../components/Button.js";
 
 **List Anatomy**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List_Anatomy2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List_Anatomy2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/List_Anatomy2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/List_Anatomy2x.png)
 
 **Example**
 
@@ -194,7 +194,7 @@ import * as List from "../components/List.js";
 
 **Card Types**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/Cards2x.png)
 
  1. Default
 
@@ -202,7 +202,7 @@ import * as List from "../components/List.js";
 
 **Card Anatomy**
 
-![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards_Anatomy2x.png](Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards_Anatomy2x.png)
+![Airbnb%20App%20Clone%20in%20React%20Native%20e414bb4f4fda4b6ca31d864007637f2d/Cards_Anatomy2x.png](https://raw.githubusercontent.com/brandnewjinah/react-native-airbnb-clone/feature/detail/airbnb/app/assets/Cards_Anatomy2x.png)
 
 **Example**
 
