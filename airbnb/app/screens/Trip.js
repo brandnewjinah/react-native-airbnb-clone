@@ -1,8 +1,8 @@
 import React from "react";
-import { FlatList, View, Text, ScrollView } from "react-native";
+import { FlatList, View } from "react-native";
 
 //import components
-import TripCard from "../components/TripCard";
+import * as Cards from "../components/Cards";
 
 //import styles and icons
 import styled from "styled-components";
@@ -34,13 +34,16 @@ const Trip = ({ navigation }) => {
         data={rooms}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => (
-          <TripCard
-            image={item.images[0]}
-            title={item.city}
-            subtitle={handleDate(item)}
-            description={item.title}
-            onPress={() => navigation.navigate("TripDetails", item)}
-          />
+          <View style={{ padding: 24 }}>
+            <Cards.Default
+              image={item.images[0]}
+              sub={handleDate(item)}
+              title={item.city}
+              secondary={item.title}
+              action="여행 계획 보기"
+              onPress={() => navigation.navigate("TripDetails", item)}
+            />
+          </View>
         )}
       ></FlatList>
     </Container>

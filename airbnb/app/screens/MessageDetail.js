@@ -20,7 +20,7 @@ import styled from "styled-components";
 import colors from "../config/colors";
 import { Feather } from "@expo/vector-icons";
 
-const keyboardVerticalOffset = Platform.OS === "ios" ? 60 : 60;
+const keyboardVerticalOffset = Platform.OS === "ios" ? 100 : -150;
 
 const MessageDetail = () => {
   const [message, setMessage] = useState({
@@ -33,7 +33,7 @@ const MessageDetail = () => {
   const flat = useRef();
 
   useEffect(() => {
-    socket.current = io("http://10.160.211.17:3001");
+    socket.current = io("http://192.168.49.7:3001");
     socket.current.on("message", (message) => {
       setMessageList((prevState) => [...prevState, message]);
     });

@@ -3,7 +3,7 @@ import { TouchableOpacity } from "react-native";
 
 //import styles and assets
 import styled from "styled-components";
-import Colors from "../config/colors";
+import colors from "../config/colors";
 import { EvilIcons } from "@expo/vector-icons";
 
 export const SearchTap = ({ icon, size, placeholder, setSearch }) => {
@@ -12,21 +12,12 @@ export const SearchTap = ({ icon, size, placeholder, setSearch }) => {
       <TouchableOpacity onPress={setSearch}>
         <SearchArea>
           <Flex>
-            <EvilIcons name={icon} size={size} color={Colors.black} />
+            <EvilIcons name={icon} size={size} color={colors.black} />
             <Placeholder>{placeholder}</Placeholder>
           </Flex>
         </SearchArea>
       </TouchableOpacity>
     </Container>
-  );
-};
-
-export const SearchInput = ({ ...otherProps }) => {
-  return (
-    <InputArea>
-      <EvilIcons name="search" size={20} color={Colors.black} />
-      <Input autoFocus={true} {...otherProps} />
-    </InputArea>
   );
 };
 
@@ -41,16 +32,7 @@ const SearchArea = styled.View`
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  border: 1px solid ${Colors.lightgray};
-  border-radius: 25px;
-  padding: 10px;
-`;
-
-const InputArea = styled.View`
-  flex-direction: row;
-  align-items: center;
-  width: 80%;
-  border: 1px solid ${Colors.lightgray};
+  border: 1px solid ${colors.lightgray};
   border-radius: 25px;
   padding: 10px;
 `;
@@ -64,6 +46,6 @@ const Input = styled.TextInput`
 `;
 
 const Placeholder = styled.Text`
-  color: ${Colors.gray};
+  color: ${colors.gray};
   margin-left: 10px;
 `;

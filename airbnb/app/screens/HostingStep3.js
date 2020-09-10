@@ -1,35 +1,33 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Button,
-  StyleSheet,
-  Modal,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { StyleSheet, Modal, Text, KeyboardAvoidingView } from "react-native";
 import * as Location from "expo-location";
+
 //import components
 import AppForm from "../components/forms/AppForm";
-import AppPicker from "../components/AppPicker";
-import Counter from "../components/Counter";
+import LocationPicker from "../components/LocationPicker";
+import * as Button from "../components/Button";
+import { DefaultInput } from "../components/forms/AppInput";
 
 //import styles and assets
 import styled from "styled-components";
-import { H, Sub1, P } from "../config/Typography";
-import Colors from "../config/colors";
-import { RoundedBtn } from "../components/Button";
-import { EvilIcons } from "@expo/vector-icons";
-import LocationPicker from "../components/LocationPicker";
+import { H } from "../config/Typography";
+import colors from "../config/colors";
 
-const categories = [
-  { label: "아파트", value: 1 },
-  { label: "주택", value: 2 },
-  { label: "별채", value: 3 },
-  { label: "부티크 호텔", value: 4 },
-];
+//import redux
+import { connect } from "react-redux";
+import { setCurrLocation, setRevGeoCode } from "../store/host";
 
-const HostingStep3 = ({ navigation }) => {
-  const [location, setLocation] = useState([]);
-  const [openModal, setOpenmodal] = useState(false);
+const keyboardVerticalOffset = Platform.OS === "ios" ? 80 : 80;
+
+const HostingStep3 = (props) => {
+  const [location, setLocation] = useState({});
+  const [address, setAddress] = useState([]);
+
+  const getAddress = async (location) => {
+    let addy = await Location.reverseGeocodeAsync(location);
+    console.log(addy);
+    setAddress(addy);
+  };
 
   const getLocation = async () => {
     const { granted } = await Location.requestPermissionsAsync();
@@ -37,45 +35,108 @@ const HostingStep3 = ({ navigation }) => {
     const {
       coords: { latitude, longitude },
     } = await Location.getLastKnownPositionAsync();
-    setLocation([latitude, longitude]);
+    setLocation({ latitude, longitude });
+    location && getAddress({ latitude, longitude });
   };
 
-  useEffect(() => {
+  const getCurrLocation = () => {
     getLocation();
-  }, []);
+  };
 
-  const [category, setCategory] = useState();
-  const [guest, setGuest] = useState(0);
+  const setNewAddress = (text, name) => {
+    let newArray = [...address];
+    let newAddress = { ...newArray[0] };
+    newAddress[name] = text;
+    newArray[0] = newAddress;
+    setAddress(newArray);
+  };
+
+  const onNavigate = () => {
+    props.setCurrLocation(location);
+    props.setRevGeoCode(address[0]);
+    props.navigation.navigate("HostingStep4");
+  };
 
   return (
     <Container>
-      <Main>
-        <H>숙소가 어디에 있나요?</H>
-        <AppForm
-          initialValues={{ name: "", price: "", description: "" }}
-          onSubmit={(values) => console.log(values)}
-        >
-          <Step style={{ paddingTop: 20 }}>
-            <Button
-              title="현재위치 사용하기"
-              // onPress={() => console.log(location)}
-              onPress={() => setOpenmodal(true)}
-            />
-          </Step>
-          <Modal visible={openModal} animationType="slide">
-            <LocationPicker
-              location={location}
-              closeBtn={() => setOpenmodal(false)}
-            />
-          </Modal>
-        </AppForm>
-      </Main>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior="padding"
+        keyboardVerticalOffset={keyboardVerticalOffset}
+      >
+        <Main>
+          <H>숙소가 어디에 있나요?</H>
+          <AppForm
+            initialValues={{ name: "", price: "", description: "" }}
+            onSubmit={(values) => console.log(values)}
+          >
+            <Step style={{ paddingTop: 20 }}>
+              <Button.BtnText
+                label="현재위치 사용하기"
+                color={colors.red}
+                onPress={() => getCurrLocation()}
+              />
+            </Step>
+            <Step>
+              <Text></Text>
+            </Step>
+            <Step>
+              <Text>국가/지역</Text>
+              <DefaultInput
+                name="country"
+                value={address[0] && address[0].country}
+                onChangeText={(text) => setNewAddress(text, "country")}
+              />
+            </Step>
+            <Step>
+              <Text>주</Text>
+              <DefaultInput
+                name="region"
+                value={address[0] && address[0].region}
+                onChangeText={(text) => setNewAddress(text, "region")}
+              />
+            </Step>
+            <Step>
+              <Text>시/군/구</Text>
+              <DefaultInput
+                name="city"
+                value={address[0] && address[0].city}
+                onChangeText={(text) => setNewAddress(text, "city")}
+              />
+            </Step>
+            <Step>
+              <Text>도로명 주소</Text>
+              <DefaultInput
+                name="name"
+                value={address[0] && address[0].name}
+                onChangeText={(text) => setNewAddress(text, "name")}
+              />
+            </Step>
+            <Step>
+              <Text>우편번호</Text>
+              <DefaultInput
+                name="postalCode"
+                value={address[0] && address[0].postalCode}
+                onChangeText={(text) => setNewAddress(text, "postalCode")}
+              />
+            </Step>
+            {/* <Modal visible={openModal} animationType="slide">
+              <LocationPicker
+                location={location}
+                closeBtn={() => setOpenmodal(false)}
+              />
+            </Modal> */}
+          </AppForm>
+        </Main>
+      </KeyboardAvoidingView>
       <Next>
         <Left></Left>
         <BtnContainer>
-          <RoundedBtn
+          <Button.BtnContain
             label="다음"
-            onPress={() => navigation.navigate("HostingStep4")}
+            color={colors.red}
+            size="small"
+            onPress={() => onNavigate()}
           />
         </BtnContainer>
       </Next>
@@ -99,7 +160,7 @@ const Next = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
@@ -113,21 +174,10 @@ const Step = styled.View`
   margin: 20px 0;
 `;
 
-const InputWrapper = styled.View`
-  margin: 15px 0 10px 0;
-`;
-
-const Flex = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin: 15px 0 10px 0;
-`;
-
 const styles = StyleSheet.create({
   map: {
     height: 200,
   },
 });
 
-export default HostingStep3;
+export default connect(null, { setCurrLocation, setRevGeoCode })(HostingStep3);

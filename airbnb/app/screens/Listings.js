@@ -1,19 +1,23 @@
 import React, { useState } from "react";
-import { Dimensions, FlatList, Modal, StatusBar, View } from "react-native";
-
-import FilterItem from "../components/FilterItem";
-import { NavBar } from "../components/NavBar";
+import { Dimensions, FlatList, Modal, View } from "react-native";
 
 //import components
-import { RoundedButton, IconButton } from "../components/Button";
+import { NavBar } from "../components/NavBar";
+import * as Button from "../components/Button";
+import SliderView from "../patterns/SliderView";
+
+//import screens
 import ListMap from "../screens/ListMap";
-import CardView from "../components/CardView";
 
 //import styles and assets
 import styled from "styled-components";
-import { H1, SP } from "../config/Typography";
+import * as Typography from "../config/Typography";
 
 import { rooms } from "../data/testdata";
+
+//import redux
+import { connect } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const filteroptions = [
   { label: "난방", value: "난방" },
@@ -25,7 +29,7 @@ const filteroptions = [
 
 const { width, height } = Dimensions.get("window");
 
-const Listings = ({ navigation }) => {
+const Listings = (props) => {
   const [showFilter, setShowFilter] = useState(false);
   const [showMap, setShowMap] = useState(false);
 
@@ -35,45 +39,45 @@ const Listings = ({ navigation }) => {
       <Main>
         <FlatList
           ListHeaderComponent={
-            <View style={{ marginTop: 40 }}>
+            <Header>
               <View>
-                <SP>300개 이상의 숙소</SP>
-                <H1>제주도의 숙소</H1>
+                <Typography.SP>300개 이상의 숙소</Typography.SP>
+                <Typography.H1>{props.state.city}의 숙소</Typography.H1>
               </View>
-              <BtnContainer>
-                <RoundedButton
-                  label="필터"
-                  onPress={() => setShowFilter(true)}
-                />
-              </BtnContainer>
-            </View>
+              <TouchableOpacity>
+                <BtnContainer>
+                  <Filter source={require("../assets/filter.png")}></Filter>
+                </BtnContainer>
+              </TouchableOpacity>
+            </Header>
           }
           data={rooms}
           keyExtractor={(room) => room.id.toString()}
           showsVerticalScrollIndicator={false}
           renderItem={({ item }) => (
-            <CardView
+            <SliderView
               images={item.images}
               title={item.title}
               subtitle={item.price}
               rating={item.rating}
               reviews={item.reviews}
-              onPress={() => navigation.navigate("Details", item)}
+              onPress={() => props.navigation.navigate("Details", item)}
+              // onPress={console.log("detail")}
             />
           )}
         ></FlatList>
         <MapBtnWrapper>
-          <IconButton
+          <Button.FloatingButton
             iconName="map-o"
             label="지도"
-            onPress={() => navigation.navigate("ListMap", rooms)}
+            onPress={() => props.navigation.navigate("ListMap", rooms)}
           />
         </MapBtnWrapper>
         <Modal visible={showMap} animationType="slide">
           <ListMap
             rooms={rooms}
             closeBtn={() => setShowMap(false)}
-            // showListing={() => navigation.navigate("Details", item)}
+            // showListing={() => props.navigation.navigate("Details", item)}
           />
         </Modal>
       </Main>
@@ -87,19 +91,35 @@ const Body = styled.View`
 `;
 
 const Main = styled.View`
+  flex: 1;
   padding: 0 24px;
 `;
 
+const Header = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 40px 0 30px 0;
+`;
+
+const Filter = styled.Image`
+  width: 20px;
+  height: 100%;
+  resize-mode: contain;
+  /* margin: 10px 0; */
+`;
+
 const BtnContainer = styled.View`
-  width: 25%;
-  margin: 16px 0;
+  width: 20px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MapBtnWrapper = styled.View`
   width: 20%;
   align-self: center;
   position: absolute;
-  bottom: 80px;
+  bottom: 20px;
 `;
 
 const CloseBtn = styled.View`
@@ -111,4 +131,10 @@ const CloseBtn = styled.View`
   align-self: center;
 `;
 
-export default Listings;
+const mapStateToProps = (state) => {
+  return {
+    state: state.search,
+  };
+};
+
+export default connect(mapStateToProps)(Listings);

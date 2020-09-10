@@ -1,11 +1,13 @@
 import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-// import screens
-import Listings from "../screens/Listings";
+// import navigation
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import TripStack from "../navigation/TripStack";
 import MessageStack from "../navigation/MessageStack";
 import HostStack from "../navigation/HostStack";
+
+// import screens
+import Listings from "../screens/Listings";
 import Accounts from "../screens/Accounts";
 
 // import styles and assets

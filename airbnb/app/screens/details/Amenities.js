@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, SectionList } from "react-native";
 
 //import components
-import { SingleItem } from "../../components/ListItem";
+import * as ListItem from "../../components/List";
 
 //import styles and assets
 import styled from "styled-components";
@@ -29,13 +29,7 @@ const Amenities = () => {
         )}
         stickySectionHeadersEnabled={false}
         renderItem={({ item }) => (
-          <SingleItem
-            title={item.name}
-            subtitle={item.description}
-            iconcolor={colors.darkgray}
-            // onPress={() => console.log("selected", item)}
-            onPress={() => navigation.navigate(`${item.screen}`)}
-          />
+          <ListItem.Default title={item.name} subtitle={item.description} />
         )}
         ItemSeparatorComponent={() => <HLine />}
       />

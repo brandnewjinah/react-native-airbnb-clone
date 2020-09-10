@@ -1,22 +1,25 @@
 import React, { useState } from "react";
-import {
-  View,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-} from "react-native";
+import { View } from "react-native";
 
 //import components
-import { AppInput } from "../components/forms/AppInput";
 import AppForm from "../components/forms/AppForm";
 import AppPicker from "../components/AppPicker";
 import Counter from "../components/Counter";
 
 //import styles and assets
 import styled from "styled-components";
-import { H, Sub1, P } from "../config/Typography";
-import Colors from "../config/colors";
-import { RoundedBtn } from "../components/Button";
+import * as Typography from "../config/Typography";
+import colors from "../config/colors";
+import * as Button from "../components/Button";
+
+//import redux
+import { connect } from "react-redux";
+import {
+  setPropertyType,
+  setMaxGuest,
+  setMaxBedroom,
+  setMaxBath,
+} from "../store/host";
 
 const categories = [
   { label: "아파트", value: 1 },
@@ -25,22 +28,30 @@ const categories = [
   { label: "부티크 호텔", value: 4 },
 ];
 
-const Hosting = ({ navigation }) => {
-  const [category, setCategory] = useState();
+const Hosting = (props) => {
+  const [category, setCategory] = useState("");
   const [guest, setGuest] = useState(0);
   const [bedroom, setBedroom] = useState(0);
   const [bath, setBath] = useState(0);
 
+  const onNavigate = () => {
+    props.setPropertyType(category.label);
+    props.setMaxGuest(guest);
+    props.setMaxBedroom(bedroom);
+    props.setMaxBath(bath);
+    props.navigation.navigate("HostingStep2");
+  };
+
   return (
     <Container>
       <Main>
-        <H>숙소 등록을 시작해볼까요?</H>
+        <Typography.H>숙소 등록을 시작해볼까요?</Typography.H>
         <AppForm
           initialValues={{ name: "", price: "", description: "" }}
           onSubmit={(values) => console.log(values)}
         >
           <Step style={{ paddingTop: 20 }}>
-            <Sub1>등록하실 숙소 종류는 무엇인가요?</Sub1>
+            <Typography.Sub1>등록하실 숙소 종류는 무엇인가요?</Typography.Sub1>
             <InputWrapper>
               <AppPicker
                 selectedItem={category}
@@ -52,9 +63,11 @@ const Hosting = ({ navigation }) => {
             </InputWrapper>
           </Step>
           <Step>
-            <Sub1>얼마나 많은 인원이 숙박할 수 있나요?</Sub1>
+            <Typography.Sub1>
+              얼마나 많은 인원이 숙박할 수 있나요?
+            </Typography.Sub1>
             <Flex>
-              <P colors={Colors.gray}>최대 숙박 인원</P>
+              <Typography.P colors={colors.gray}>최대 숙박 인원</Typography.P>
               <View style={{ width: "30%" }}>
                 <Counter
                   result={guest}
@@ -65,9 +78,11 @@ const Hosting = ({ navigation }) => {
             </Flex>
           </Step>
           <Step>
-            <Sub1>게스트가 사용할 수 있는 침실은 몇 개인가요?</Sub1>
+            <Typography.Sub1>
+              게스트가 사용할 수 있는 침실은 몇 개인가요?
+            </Typography.Sub1>
             <Flex>
-              <P colors={Colors.gray}>침실</P>
+              <Typography.P colors={colors.gray}>침실</Typography.P>
               <View style={{ width: "30%" }}>
                 <Counter
                   result={bedroom}
@@ -78,9 +93,11 @@ const Hosting = ({ navigation }) => {
             </Flex>
           </Step>
           <Step>
-            <Sub1>게스트가 사용할 수 있는 욕실은 몇 개인가요?</Sub1>
+            <Typography.Sub1>
+              게스트가 사용할 수 있는 욕실은 몇 개인가요?
+            </Typography.Sub1>
             <Flex>
-              <P colors={Colors.gray}>욕실</P>
+              <Typography.P colors={colors.gray}>욕실</Typography.P>
               <View style={{ width: "30%" }}>
                 <Counter
                   result={bath}
@@ -90,25 +107,16 @@ const Hosting = ({ navigation }) => {
               </View>
             </Flex>
           </Step>
-          {/* <Step>
-            <Sub1>숙소의 제목을 만들어 주세요</Sub1>
-            <InputWrapper>
-              <AppInput
-                name="title"
-                placeholder="숙소의 특징과 장점을 강조하는 제목을 써주세요"
-                maxLength={50}
-                clearButtonMode="always"
-              />
-            </InputWrapper>
-          </Step> */}
         </AppForm>
       </Main>
       <Next>
         <Left></Left>
         <BtnContainer>
-          <RoundedBtn
+          <Button.BtnContain
             label="다음"
-            onPress={() => navigation.navigate("HostingStep2")}
+            size="small"
+            color={colors.red}
+            onPress={() => onNavigate()}
           />
         </BtnContainer>
       </Next>
@@ -132,7 +140,7 @@ const Next = styled.View`
   justify-content: space-between;
   align-items: center;
   border-top-width: 1px;
-  border-top-color: ${Colors.faintgray};
+  border-top-color: ${colors.faintgray};
   background-color: white;
 `;
 
@@ -157,4 +165,9 @@ const Flex = styled.View`
   margin: 15px 0 10px 0;
 `;
 
-export default Hosting;
+export default connect(null, {
+  setPropertyType,
+  setMaxGuest,
+  setMaxBedroom,
+  setMaxBath,
+})(Hosting);

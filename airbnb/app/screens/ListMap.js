@@ -17,7 +17,6 @@ import MapCard from "../components/MapCard";
 //import styles and assets
 import styled from "styled-components";
 import { EvilIcons } from "@expo/vector-icons";
-import navigationTheme from "../navigation/navigationTheme";
 
 //import data
 // import { rooms } from "../data/testdata";
@@ -83,7 +82,7 @@ const ListMap = ({ navigation, route, closeBtn, showListing }) => {
 
     const scale = mapAnimation.interpolate({
       inputRange,
-      outputRange: [1, 1.5, 1],
+      outputRange: [1, 1.25, 1],
       extrapolate: "clamp",
     });
 
@@ -126,9 +125,20 @@ const ListMap = ({ navigation, route, closeBtn, showListing }) => {
               coordinate={room.coordinate}
               onPress={(e) => onMarkerPress(e)}
             >
-              <CustomMarker>
-                <Text>{room.price}</Text>
-              </CustomMarker>
+              <Animated.View
+                style={[
+                  {
+                    borderRadius: 20,
+                    paddingVertical: 6,
+                    paddingHorizontal: 16,
+                  },
+                  scaleStyle,
+                ]}
+              >
+                <CustomMarker>
+                  <Text>${room.price}</Text>
+                </CustomMarker>
+              </Animated.View>
             </Marker>
           );
         })}
@@ -202,6 +212,12 @@ const Bubble = styled.View`
   border: 0.5px solid #cccccc;
   padding: 15px;
   width: 150px;
+`;
+
+const CustomMarkerCurrent = styled.View`
+  background-color: black;
+  border-radius: 20px;
+  padding: 6px 16px;
 `;
 
 const CustomMarker = styled.View`

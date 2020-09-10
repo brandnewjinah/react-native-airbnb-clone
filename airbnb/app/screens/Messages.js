@@ -1,15 +1,8 @@
 import React, { useState } from "react";
-import {
-  FlatList,
-  Platform,
-  SafeAreaView,
-  StatusBar,
-  Text,
-  View,
-} from "react-native";
+import { FlatList } from "react-native";
 
 //import components
-import { MessageItem } from "../components/ListItem";
+import * as List from "../components/List";
 import DeleteItem from "../components/DeleteItem";
 
 //import styles and assets
@@ -72,12 +65,11 @@ const MessageScreen = ({ navigation }) => {
         data={messages}
         keyExtractor={(message) => message.id.toString()}
         renderItem={({ item }) => (
-          <MessageItem
+          <List.UserList
             title={item.fromUser}
-            subtitle={item.description}
+            secondary={item.description}
             image={item.image}
-            dates={item.dates}
-            arrow="chevron-right"
+            meta={item.dates}
             onPress={() => handleNavigation(item)}
             RightActions={() => (
               <DeleteItem onPress={() => handleDelete(item)} />

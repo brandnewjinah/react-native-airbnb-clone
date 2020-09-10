@@ -1,13 +1,18 @@
 import React from "react";
 import { Platform } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
 
+//import navigation
+import { createStackNavigator } from "@react-navigation/stack";
+import HomeStack from "./HomeStack";
+
+//import screens
 import Welcome from "../screens/Welcome";
 import Login from "../screens/Login";
+import Signup from "../screens/Signup";
 
-import { EvilIcons } from "@expo/vector-icons";
+//import styles and assets
 import styled from "styled-components";
-import MainStack from "./MainStack";
+import { EvilIcons } from "@expo/vector-icons";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +22,22 @@ const AuthStack = () => (
       name="Welcome"
       component={Welcome}
       options={{ headerShown: false }}
+    />
+    <Stack.Screen
+      name="Signup"
+      component={Signup}
+      options={{
+        title: false,
+        headerBackTitleVisible: false,
+        headerStyle: {
+          height: 60,
+        },
+        headerBackImage: () => (
+          <IconWrapper>
+            <EvilIcons name="chevron-left" size={30} />
+          </IconWrapper>
+        ),
+      }}
     />
     <Stack.Screen
       name="Login"
@@ -35,8 +56,8 @@ const AuthStack = () => (
       }}
     />
     <Stack.Screen
-      name="MainStack"
-      component={MainStack}
+      name="HomeStack"
+      component={HomeStack}
       options={{ headerShown: false }}
     />
   </Stack.Navigator>

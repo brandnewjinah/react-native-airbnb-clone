@@ -3,7 +3,7 @@ import { Text, View, StatusBar, StyleSheet, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 
 import { Provider } from "react-redux";
-import { store } from "./app/store/store";
+import store from "./app/store/store";
 
 import styled from "styled-components";
 
@@ -13,11 +13,7 @@ import Details from "./app/screens/Details";
 import ViewImage from "./app/screens/ViewImage";
 import MessageScreen from "./app/screens/Messages";
 import Account from "./app/screens/Accounts";
-import Login from "./app/screens/Login";
-import Signup01 from "./app/screens/Signup01";
-import Signup02 from "./app/screens/Signup02";
 import Home from "./app/screens/Home";
-import AdCard from "./app/components/AdCard";
 import RangePicker from "./app/screens/RangePicker";
 
 import AddGuest from "./app/screens/AddGuest";
@@ -30,25 +26,25 @@ import MessageDetail from "./app/screens/MessageDetail";
 import Highlights from "./app/components/Highlights";
 
 import AuthStack from "./app/navigation/AuthStack";
-import MainStack from "./app/navigation/MainStack";
+import HomeStack from "./app/navigation/HomeStack";
 import ListStack from "./app/navigation/ListStack";
-import ListStack2 from "./app/testscreens/ListStack";
 import ListTab from "./app/navigation/ListTab";
-import MainTab from "./app/navigation/MainTab";
-import MapStack from "./app/testscreens/MapStack";
+import HomeTab from "./app/navigation/HomeTab";
 import TripStack from "./app/navigation/TripStack";
 import ImgSliderItem from "./app/components/ImgSliderItem";
 
+import HostingStep3 from "./app/screens/HostingStep3";
+
 export default function App() {
   return (
-    // <Common>
-    <Provider store={store}>
-      <NavigationContainer theme={navigationTheme}>
-        {/* <AuthStack /> */}
-        <ListStack />
-      </NavigationContainer>
-    </Provider>
-    // </Common>
+    <Common>
+      <Provider store={store}>
+        <NavigationContainer theme={navigationTheme}>
+          {/* <AuthStack /> */}
+          <HomeStack />
+        </NavigationContainer>
+      </Provider>
+    </Common>
   );
 }
 

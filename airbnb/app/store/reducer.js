@@ -1,19 +1,8 @@
-import * as actions from "./actionTypes";
+import { combineReducers } from "redux";
+import search from "./search";
+import host from "./host";
 
-const initialState = {
-  city: "",
-};
-
-export const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case actions.CITY_SET:
-      return [
-        ...state,
-        {
-          city: action.payload.city,
-        },
-      ];
-    default:
-      state;
-  }
-};
+export default combineReducers({
+  search,
+  host,
+});

@@ -27,14 +27,17 @@ const LocationPicker = ({ closeBtn, location }) => {
           style={styles.map}
           scrollEnabled={false}
           initialRegion={{
-            latitude: location[0],
-            longitude: location[1],
+            latitude: location.latitude,
+            longitude: location.longitude,
             latitudeDelta: 0.01,
             longitudeDelta: 0.01,
           }}
         >
           <Marker
-            coordinate={{ latitude: location[0], longitude: location[1] }}
+            coordinate={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+            }}
           ></Marker>
         </MapView>
       </Main>
@@ -65,7 +68,9 @@ const Mapcontainer = styled.View`
 
 const CloseBtn = styled.View`
   /* position: absolute;
-  margin-top: ${Platform.OS === "ios" ? "40px" : "40px"}; */
+  margin-top: ${Platform.OS === "ios"
+    ? "40px"
+    : "40px"}; */
   border-radius: 6px;
   padding: 4px;
 `;

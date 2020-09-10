@@ -1,19 +1,21 @@
 import React from "react";
+
+//import navigation
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import TripStack from "./TripStack";
+import HostStack from "./HostStack";
+import AccountStack from "./AccountStack";
+
+//import screens
+import Home from "../screens/Home";
+import MessageStack from "../navigation/MessageStack";
 
 //import styles and assets
 import { EvilIcons } from "@expo/vector-icons";
 
-import Home from "../screens/Home";
-import Messages from "../screens/Messages";
-import Accounts from "../screens/Accounts";
-import AccountStack from "../navigation/AccountStack";
-import TripStack from "../navigation/TripStack";
-import HostStack from "../navigation/HostStack";
-
 const Tab = createBottomTabNavigator();
 
-const MainTab = () => (
+const HomeTab = () => (
   <Tab.Navigator>
     <Tab.Screen
       name="검색"
@@ -44,7 +46,7 @@ const MainTab = () => (
     />
     <Tab.Screen
       name="메시지"
-      component={Messages}
+      component={MessageStack}
       options={{
         tabBarIcon: ({ color, size }) => (
           <EvilIcons name="comment" color={color} size={size} />
@@ -63,4 +65,4 @@ const MainTab = () => (
   </Tab.Navigator>
 );
 
-export default MainTab;
+export default HomeTab;
