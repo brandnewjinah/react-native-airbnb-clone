@@ -4,7 +4,7 @@
 This is my first React Native project done with expo.
 [Demo Video](https://youtu.be/RHxPceOgMB0)
 
-Desktop version in React can be found [here](http://www.github).
+Desktop version in React can be found [here](https://github.com/wecode-bootcamp-korea/Codebnb-frontend).
 
 ### Goal
 
@@ -72,6 +72,7 @@ const Container = styled.View`
 `
 ```
 
+
 ### Typography
 
 **Font family**
@@ -103,6 +104,7 @@ import * as Typography from "../config/typography.js";
 
 <Typography.H1 color={colors.red}>Welcome to Airbnb</Typography.H1>
 ```
+
 
 ### Buttons
 
@@ -142,9 +144,6 @@ import * as Button from "../components/Button.js";
 />
 ```
 
-**Properties**
-
-[Untitled](https://www.notion.so/91212b8d5cb846cbaabe68173fad33c0)
 
 ### Lists
 
@@ -186,9 +185,6 @@ import * as List from "../components/List.js";
 />
 ```
 
-**Properties**
-
-[Untitled](https://www.notion.so/239459ea6b2d426bbf7290dbf1748881)
 
 ### Cards
 
@@ -219,9 +215,6 @@ import * as Cards from "../components/Cards.js";
 />
 ```
 
-**Properties**
-
-[ ](https://www.notion.so/dbea0c134bf040ae9c62ebc7cfa91b51)
 
 ### Issues to resolve in the future
 
