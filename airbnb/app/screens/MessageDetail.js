@@ -33,7 +33,7 @@ const MessageDetail = () => {
   const flat = useRef();
 
   useEffect(() => {
-    socket.current = io("http://192.168.49.7:3001");
+    socket.current = io("http://192.168.1.39:3001");
     socket.current.on("message", (message) => {
       setMessageList((prevState) => [...prevState, message]);
     });
