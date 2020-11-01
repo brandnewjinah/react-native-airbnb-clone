@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  Platform,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { TouchableOpacity, TouchableWithoutFeedback } from "react-native";
 
 import { EvilIcons, FontAwesome } from "@expo/vector-icons";
 
@@ -172,14 +168,6 @@ const FbWrapper = styled.View`
   border-radius: 26px;
   padding: 14px;
   box-shadow: 0 3px 3px rgba(0, 0, 0, 0.12);
-`;
-
-const Disabled = styled.View`
-  justify-content: center;
-  align-items: center;
-  border: 2px solid ${colors.lightgray};
-  border-radius: 26px;
-  padding: 14px;
 `;
 
 const Label = styled.Text`

@@ -40,8 +40,8 @@ export default function App() {
     <Common>
       <Provider store={store}>
         <NavigationContainer theme={navigationTheme}>
-          {/* <AuthStack /> */}
-          <HomeStack />
+          <AuthStack />
+          {/* <HomeStack /> */}
         </NavigationContainer>
       </Provider>
     </Common>

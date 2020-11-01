@@ -33,7 +33,15 @@ export const List = ({ data }) => {
   );
 };
 
-export const Default = ({ action, image, title, secondary, sub, onPress }) => {
+export const Default = ({
+  action,
+  image,
+  title,
+  secondary,
+  sub,
+  meta,
+  onPress,
+}) => {
   return (
     <Rounded
       style={{

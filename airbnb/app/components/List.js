@@ -2,7 +2,12 @@ import React from "react";
 import { View, TouchableHighlight } from "react-native";
 import Swipeable from "react-native-gesture-handler/Swipeable";
 
-import { AntDesign, EvilIcons, MaterialIcons } from "@expo/vector-icons";
+import {
+  AntDesign,
+  EvilIcons,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 import styled from "styled-components";
 import * as Typography from "../config/Typography";
 import colors from "../config/colors";
@@ -21,7 +26,11 @@ export const Default = ({ containedicon, icon, secondary, title, onPress }) => {
           {secondary && <Typography.P>{secondary}</Typography.P>}
         </TextContainer>
         {icon && (
-          <EvilIcons name={icon} size={24} style={{ color: colors.gray }} />
+          <MaterialCommunityIcons
+            name={icon}
+            size={24}
+            style={{ color: colors.gray }}
+          />
         )}
       </Container>
     </TouchableHighlight>
@@ -111,7 +120,6 @@ const Avatar = styled.Image`
 `;
 
 const AvatarEmpty = styled.View`
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   width: 70px;
